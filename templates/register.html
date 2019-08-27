@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Register</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/lib/fontawesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/forms.css">
+</head>
+<body>
+	<div class="reg-form-cont">
+	  <div class="image-cont">
+	  	<img src="/static/img/wizspot_logo2.png">
+	  </div>
+	  <div class="form-cont-header">
+	    <font>Register</font><br>	
+	  </div>
+	  <form method="POST" action="register">
+	  	<div class="form-input-cont">
+	  	  <font>Username:</font><br>
+	  	  <input type="text" name="username" placeholder="Username">	
+	  	</div>
+	  	<div class="form-input-cont">
+	  	  <font>Email:</font><br>
+	  	  <input type="text" name="email" placeholder="Email">	
+	  	</div>
+	  	<div class="form-input-cont">
+	  	  <font>Verify Email:</font><br>
+	  	  <input type="text" name="vemail" placeholder="Re-enter Email">	
+	  	</div>
+		<div class="form-input-cont">
+		  <font>Password:</font><br>
+		  <input type="password" name="password" placeholder="Password">	
+		</div>
+		<div class="form-input-cont">
+		  <font>Verify Password:</font><br>
+		  <input type="password" name="vpassword" placeholder="Re-enter Password">	
+		</div>
+		<div class="form-button-cont">
+		  <button class="btn btn-primary" type=submit>Register</button>
+		  <div style="margin-top: 5px; text-align: center;"><a href="login">Back to Login</a></div>
+		</div>
+		<div class="error-msg">
+		  {% if error %}
+    	  <p><strong>Error:</strong> {{ error }}
+    	  {% endif %}
+		</div>
+	  </form>
+	</div>
+	
+
+	
+	
+</body>
+</html>

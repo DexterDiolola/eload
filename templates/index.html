@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/lib/fontawesome.min.css">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = '/css/loadcentral.css') }}">
+</head>
+<body>
+	<div class="preloader">
+		<div class="spinner"></div>
+	</div>
+	<div class="dark-background">
+	  <div class="item-details-cont">
+	    <span class="close close-icon">&times;</span>
+	    <div class="row item-details1">
+	      
+	    </div>
+	    <div class="item-details2">
+	    </div>
+	    <div class="separator" style="border-top: 1px solid #C3C3C3; margin-top: 20px;"></div>
+	    <div class="item-details3">
+	    </div>
+
+	  </div>
+	</div>
+
+
+	<div class="main">
+		<div class="pri-cont">
+			<div class="row category-tab">
+			  <div class="cat-item cat-item-eload">E-Load</div>
+			  <div class="cat-item cat-item-ct">Call & Text</div>
+			  <div class="cat-item cat-item-data">Data</div>
+			</div>
+
+			<div class="menu-items">
+			  <div class="row telco-menu-cont">
+			  	<div class="telco-menu-frame" onclick="clickTelco('Globe')">
+			  	  <div class="telco-menu"><img src="/static/img/globe_logo.png"></div>
+			  	</div>
+			  	<div class="telco-menu-frame" onclick="clickTelco('Smart')">
+			  	  <div class="telco-menu"><img src="/static/img/smart_logo.png"></div>
+			  	</div>
+			  	<div class="telco-menu-frame" onclick="clickTelco('Sun')">
+			  	  <div class="telco-menu"><img src="/static/img/sun_logo.png"></div>
+			  	</div>
+			  	<div class="telco-menu-frame" onclick="clickTelco('TM')">
+			  	  <div class="telco-menu"><img src="/static/img/tm_logo.png"></div>
+			  	</div>
+			  	<div class="telco-menu-frame" onclick="clickTelco('TNT')">
+			  	  <div class="telco-menu"><img src="/static/img/tnt_logo.png"></div>
+			  	</div>
+			  </div>
+
+			  <table class="table table-hover menu-table">
+			  </table>
+			  
+			  <div class="warning-text">No Available Items</div>
+			</div>
+
+			<div class="menu-items-2">
+			  <div class="row product-menu-cont">
+			  	<div class="product-menu-frame" onclick="clickProduct('Blizzard')">
+			  	  <div class="product-menu"><img src="/static/img/blizzard_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('CherryCredits')">
+			  	  <div class="product-menu"><img src="/static/img/cherrycredits_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('Cignal')">
+			  	  <div class="product-menu"><img src="/static/img/cignal_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('ESET')">
+			  	  <div class="product-menu"><img src="/static/img/eset_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('GameClub')">
+			  	  <div class="product-menu"><img src="/static/img/gameclub_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('GAMEYEZ')">
+			  	  <div class="product-menu"><img src="/static/img/gameyez_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('Garena')">
+			  	  <div class="product-menu"><img src="/static/img/garena_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('GSAT')">
+			  	  <div class="product-menu"><img src="/static/img/gsat_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('Holdem')">
+			  	  <div class="product-menu"><img src="/static/img/holdem_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('LeadHope')">
+			  	  <div class="product-menu"><img src="/static/img/leadhope_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('LevelUp')">
+			  	  <div class="product-menu"><img src="/static/img/levelup_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('Marino')">
+			  	  <div class="product-menu"><img src="/static/img/marino_logo.png"></div>\
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('MobileLegends')">
+			  	  <div class="product-menu"><img src="/static/img/mobilelegends_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('PlayOMG')">
+			  	  <div class="product-menu"><img src="/static/img/playomg_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('Ragnarok')">
+			  	  <div class="product-menu"><img src="/static/img/ragnarok_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('RAN')">
+			  	  <div class="product-menu"><img src="/static/img/ran_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('Razer')">
+			  	  <div class="product-menu"><img src="/static/img/razer_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('Sky')">
+			  	  <div class="product-menu"><img src="/static/img/sky_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('SNS')">
+			  	  <div class="product-menu"><img src="/static/img/sns_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('Softnyx')">
+			  	  <div class="product-menu"><img src="/static/img/softnyx_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('Steam')">
+			  	  <div class="product-menu"><img src="/static/img/steam_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('Sweepo')">
+			  	  <div class="product-menu"><img src="/static/img/sweepo_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('Tongits')">
+			  	  <div class="product-menu"><img src="/static/img/tongits_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('Triplejack')">
+			  	  <div class="product-menu"><img src="/static/img/triplejack_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('uCoin')">
+			  	  <div class="product-menu"><img src="/static/img/ucoin_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('VIU')">
+			  	  <div class="product-menu"><img src="/static/img/viu_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('VOOMGA')">
+			  	  <div class="product-menu"><img src="/static/img/voomga_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('Warpportal')">
+			  	  <div class="product-menu"><img src="/static/img/warpportal_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('Wtfast')">
+			  	  <div class="product-menu"><img src="/static/img/wtfast_logo.png"></div>
+			  	</div>
+			  	<div class="product-menu-frame" onclick="clickProduct('XiXiGames')">
+			  	  <div class="product-menu"><img src="/static/img/xixigames_logo.png"></div>
+			  	</div>
+			  </div>
+			</div>
+			<div class="back-to-menu"><font>Back to Menu</font></div>
+			<form method="POST" action="logout">
+				<button type="submit">Logout</button>
+			</form>
+
+		</div>
+
+		<div class="sec-cont">
+			<div class="transaction-cont">
+			  <div class="separator" style="border-top: 1px solid gray; margin-top: 20px;"></div>
+			  <div class="row promo-details-cont">
+	      	   
+	      	  </div>
+	      	  <div class="separator" style="border-top: 1px solid gray; margin-top: 20px;"></div>
+	      	  <div class="price-cont">
+
+	      	  </div>
+	      	  <div class="separator" style="border-top: 1px solid gray; margin-top: 20px;"></div>
+	      	  <div class="input-cont">
+	      	  	<input class="mobile-num" type="text" name="mobile-num" placeholder="Recipient Mobile Number">
+	      	  </div>
+	      	  <div class="row btn-cont">
+			    <button type="button" class="btn btn-submit btn-confirm buy-cancel"><font>Cancel</font></button>
+			    <button type="button" class="btn btn-submit btn-confirm buy-proceed"><font>Continue</font></button>
+			  </div>
+			</div>
+		</div>
+		
+	</div>
+	
+
+
+	<script type="text/javascript" src="/static/js/lib/jquery.js"></script>
+	<script type="text/javascript" src="/static/js/lib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/static/js/loadcentral.js"></script>
+</body>
+</html>

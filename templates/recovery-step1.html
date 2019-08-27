@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Account Recovery</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/lib/fontawesome.min.css">
+</head>
+<body>
+	<div class="email-cont">
+		<div class="email-label-cont">
+			<font>Enter The Following</font>
+		</div>
+		<form method="POST" action="recover_s1">
+			<div class="enter-email">
+				<font>Please enter your email address so that we can send a verification code for the recovery of your account.</font><br>
+				<input type="text" name="email" placeholder="Email">
+				<div class="error-msg">
+					{% if error %}
+					<font>{{ error }}</font>
+					{% endif %}
+				</div>
+			</div>
+			<div class="submit-email-cont">
+				<div class="submit-email-buttons">
+					<button class="btn btn-primary" type="submit">Submit</button>
+					<button class="btn btn-secondary rec-cancel" type="button">Cancel</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<script type="text/javascript" src="/static/js/lib/jquery.js"></script>
+</body>
+</html>
+
+<style type="text/css">
+	body{
+		background-color: #D2D2D2;
+	}
+	.email-cont{
+		height: auto;
+		width: 600px;
+		border: 1px solid black;
+		border-radius: 10px;
+		margin: 20px auto auto auto;
+		background-color: #404040;
+	}
+	.email-label-cont{
+		height: auto;
+		width: 97%;
+		margin: 10px auto auto auto;
+		color: white;
+		font-family: Arial, serif;
+		font-size: 15pt;
+		border-bottom: 1px solid white;
+	}
+	.enter-email{
+		height: auto;
+		width: 80%;
+		margin: 10px auto auto auto;
+		font-size: 10pt;
+		color: white;
+	}
+	.enter-email input{
+		width: 250px;
+		margin-top: 10px;
+	}
+	.error-msg{
+		height: auto;
+		margin-top: 10px;
+		font-size: 10pt;
+		font-family: Arial, serif;
+		color: red;
+	}
+	.submit-email-cont{
+		height: 50px;
+		width: 97%;
+		margin: 10px auto auto auto;
+		border-top: 1px solid white;
+	}
+	.submit-email-buttons{
+		height: auto;
+		width: 200px;
+		float: right;
+	}
+	.submit-email-buttons button{
+		font-size: 10pt;
+		width: 48%;
+		margin: 10px auto auto auto;
+	}
+</style>
+
+<script type="text/javascript">
+	function getUrlPath(){
+		path = window.location.pathname;
+		path = path.split('/')
+		path = path[1]
+		return path
+    }
+    $('.rec-cancel').click(function(){
+    	window.location.replace('/' + getUrlPath() + '/login');
+    });
+</script>

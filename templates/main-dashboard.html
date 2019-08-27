@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="reports" ng-cloak>
+<head>
+	<title>Dashboard</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/lib/fontawesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+	<base href="/">
+</head>
+<body>
+	<div class="main-area">
+	  <div class="main-header">
+	  	{% with messages = get_flashed_messages() %}
+        <form id="logout" method="POST" action="/admin/logout">
+	      <a href="#" class="logout" onclick="event.preventDefault();
+            document.getElementById('logout').submit();">
+            {{ messages[0] }}
+          </a>
+	    </form>
+	    {% endwith %}
+	  </div>
+	  <div class="row main-content-area">
+	    <div class="main-sidebar">
+			<div class="main-sidebar-cont">
+				<li>
+					<a href="#"><i class="fa fa-tachometer" aria-hidden="true"></i>&emsp; Dashboard</a>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-certificate" aria-hidden="true"></i> &emsp; Wallet</a>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-certificate" aria-hidden="true"></i> &emsp; Earnings</a>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-certificate" aria-hidden="true"></i> &emsp; Transactions</a>
+				</li>
+			</div>
+	    </div>
+	    <div class="main-content">
+			<main ng-view></main>
+	    </div>
+	  </div>
+	</div>
+	
+
+	<script type="text/javascript" src="/static/js/lib/angular1.7.min.js"></script>
+	<script type="text/javascript" src="/static/js/lib/angular1.7-route.min.js"></script>
+	<script type="text/javascript" src="/static/js/lib/jquery.js"></script>
+	<script type="text/javascript" src="/static/js/lib/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="/static/js/module.js"></script>
+	<script type="text/javascript" src="/static/js/controllers.js"></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html ng-app="reports" ng-cloak>
+<head>
+	<title>Dashboard</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/lib/fontawesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/lib/datepicker.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+	<base href="/">
+</head>
+<body>
+	<div class="main-area">
+	  <div class="main-header">
+	  	{% with messages = get_flashed_messages() %}
+	  	<font class="logged-user">{{ messages[0] }}</font>
+	  	<div class="row header-badge-cont">
+        	<div class="dropdown">
+				<button class="btn btn-secondary notification-btn" type="button" data-toggle="dropdown" style="background-color: #404040; border: none;">
+					<i class="fa fa-bell-o" aria-hidden="true"></i>
+				</button>
+				<div class="dropdown-menu dropdown-menu-right notification-list">
+				</div>
+			</div>
+        	<div class="dropdown">
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" style="background-color: #404040; border: none;">
+					{{ messages[0] }}
+				</button>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="/operator/settings">Settings</a>
+					<form id="logout" method="POST" action="/operator/logout">
+				      <a href="#" class="dropdown-item logout" onclick="event.preventDefault();
+			            document.getElementById('logout').submit();">
+			            Logout
+			          </a>
+				    </form>
+				</div>
+			</div>
+        </div>
+	    {% endwith %}
+	  </div>
+	  <div class="row main-content-area">
+	    <div class="main-sidebar">
+	    	<div class="main-sidebar-img-cont">
+	    		<img src="/static/img/wizspot_logo.png">
+	    	</div>
+			<div class="main-sidebar-cont">
+				<li>
+					<a href="/operator/home"><i class="fa fa-tachometer" aria-hidden="true"></i>&emsp; Dashboard</a>
+				</li>
+				<li>
+					<a href="/operator/reports"><i class="fa fa-database" aria-hidden="true"></i> &emsp; Reports</a>
+				</li>
+				<li>
+					<a href="/operator/products_services"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i> &emsp; Products & Services</a>
+				</li>
+				<li>
+					<a href="/operator/load_wallet"><i class="fa fa-money"></i> &emsp; Load Wallet</a>
+				</li>
+				<!-- <li>
+					<a href="/operator/transactions"><i class="fa fa-qrcode" aria-hidden="true"></i> &emsp; Transactions</a>
+				</li>
+				<li>
+					<a href="/operator/earnings"><i class="fa fa-diamond" aria-hidden="true"></i> &emsp; Earnings</a>
+				</li> -->
+				<li>
+					<a href="#"><i class="fa fa-newspaper-o" aria-hidden="true"></i> &emsp; News & Advisory</a>
+				</li>
+			</div>
+	    </div>
+	    <div class="main-content">
+			<main ng-view></main>
+	    </div>
+	  </div>
+	</div>
+	
+
+	<script type="text/javascript" src="/static/js/lib/angular1.7.min.js"></script>
+	<script type="text/javascript" src="/static/js/lib/angular1.7-route.min.js"></script>
+	<script type="text/javascript" src="/static/js/lib/jquery.js"></script>
+	<script type="text/javascript" src="/static/js/lib/datepicker.js"></script>
+	<script type="text/javascript" src="/static/js/lib/datepicker.en.js"></script>
+	<script type="text/javascript" src="/static/js/lib/tableHeadFixer.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script type="text/javascript" src="/static/js/lib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/static/js/lib/chart.js"></script>
+
+	<script type="text/javascript" src="/static/js/module.js"></script>
+	<script type="text/javascript" src="/static/js/events.js"></script>
+	<script type="text/javascript" src="/static/js/dashboard-charts.js"></script>
+	<script type="text/javascript" src="/static/js/controllers.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+	logged_user = $('.logged-user').text();
+	
+	$.get('/api/get-notifications?user=' + logged_user + '&status=Unseen', function(result){
+		// Get the number of unread notifications
+		if(result.length == undefined){
+			msg = "<a class='dropdown-item' href='#' style='text-align: center;'>No new notification</a>"
+			$('.notification-list').append(msg);
+			return 0
+		}
+		else{
+			badge = "<span class='badge badge-danger'>" + result.length + "</span>"
+			$('.notification-btn').append(badge);
+		}
+		
+		// Initialize notifications
+		$.each(result, function(key, val){
+			notifType = val['notification'].split('|')
+			if(notifType[0] == 'low-balance' && val['mac'] == ''){
+				notification = "<a class='dropdown-item notification-detail_" + val['id'] + "' href='#'><b>" + val['dateCreated'] + "</b> - " +  
+					"Your Distributable balance is below 1000 contact administrator to reload. </a>";
+			}
+			else if(notifType[0] == 'low-balance' && val['mac'] != ''){
+				notification = "<a class='dropdown-item notification-detail_" + val['id'] + "' href='#'><b>" + val['dateCreated'] + "</b> - " +
+					val['mac'] + " balance is below 100 reload immidiately. </a>";
+			}
+			else if(val['user'] == val['operator']){
+				notification = "<a class='dropdown-item notification-detail_" + val['id'] + "' href='#'><b>" + val['dateCreated'] + "</b> - " +
+					"You distributed " + notifType[1] + " load balance to " + val['mac'] + ".";
+			}
+			else if(val['user'] != val['operator']){
+				if(val['mac'] == ''){
+					notification = "<a class='dropdown-item notification-detail_" + val['id'] + "' href='#'><b>" + val['dateCreated'] + "</b> - " +
+						"Administrator loaded " + notifType[1] + " distrbutable balance to you.";
+				}
+				else{
+					notification = "<a class='dropdown-item notification-detail_" + val['id'] + "' href='#'><b>" + val['dateCreated'] + "</b> - " +
+						"Administrator distributed " + notifType[1] + " load balance to " + val['mac'] + ".";
+				}
+			}
+			else{
+				return 0;
+			}
+			$('.notification-list').append(notification);
+
+			// Clear notification
+			$('body').on('click', '.notification-detail_'+ val['id'], function(){
+				$.get('/api/clear-notifications?clr=' + val['id'] + '&opr=', function(result){
+					window.location.replace('/operator/topup');
+				});
+			});
+
+
+		});
+		clear_notifs = "<div class='dropdown-divider'></div><a class='dropdown-item clear-all-notifs' href='#'>Clear All</a>"
+		$('.notification-list').append(clear_notifs);
+
+		// Clear all notifications
+		$('body').on('click', '.clear-all-notifs', function(){
+			$.get('/api/clear-notifications?clr=operator&opr=' + logged_user, function(result){
+				location.reload();
+			});
+		});
+
+	});
+
+	
+</script>
+
+<style type="text/css">
+	.notification-list{
+		font-size: 10pt;
+		width: 350px;
+		max-height: 400px;
+		overflow-y: auto;
+	}
+	.notification-list b{
+		font-size: 8pt;
+	}
+	.notification-list .dropdown-item{
+		white-space: normal;
+	}
+</style>

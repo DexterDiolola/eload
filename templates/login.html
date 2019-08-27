@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign-in</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/lib/fontawesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/lib/slick.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/lib/slick-theme.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/forms.css">
+</head>
+<body>
+	<div class="row form-cont">
+		<div class="form-section">
+			<div class="image-cont">
+				<img src="/static/img/wizspot_logo2.png">
+			</div>
+			<div class="form-cont-header">
+				<font>Sign-in</font><br>	
+			</div>
+			<form method="POST" action="login">
+				<div class="form-input-cont">
+					<font>Username:</font><br>
+					<input type="text" name="username">	
+				</div>
+				<div class="form-input-cont">
+					<font>Password:</font><br>
+					<input type="password" name="password">	
+				</div>
+				<div class="form-button-cont">
+					<button class="btn btn-primary" type=submit>Login</button>
+					<div style="margin-top: 5px; text-align: center;"><a href="/admin/recover_s1">Forgot Password</a></div>	
+				</div>
+				<div class="error-msg">
+					{% if error %}
+					<p><strong>Error:</strong> {{ error }}
+					{% endif %}
+				</div>
+			</form>
+		</div>
+
+		<div class="carousel-section">
+			<div class="carou">
+				<div><img src="/static/img/login_carousel/login_carousel_1.jpg"></div>
+				<div><img src="/static/img/login_carousel/login_carousel_2.jpg"></div>
+				<div><img src="/static/img/login_carousel/login_carousel_3.jpg"></div>
+			</div>
+			<!-- <div class="form-input-cont">
+				<a href="register"><button class="btn btn-primary" type=button>Register &nbsp; <i class="fa fa-forward" aria-hidden="true"></i></button></a>
+			</div> -->
+		</div>
+		
+	</div>
+	
+
+	<script type="text/javascript" src="/static/js/lib/jquery.js"></script>
+	<script type="text/javascript" src="/static/js/lib/slick.js"></script>
+</body>
+</html>
