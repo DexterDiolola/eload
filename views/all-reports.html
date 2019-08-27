@@ -1,0 +1,542 @@
+<div class="main">
+	<div class="rp-content-cont" ng-init="init(prevDate, currentDate)">
+		<div class="rp-header"></div>
+		<div class="rp-reports-label">
+			<font>Reports &nbsp;<font class="rep"></font></font>
+		</div>
+
+		<div class="row rp-datepicker-cont">
+			<div class="rp-startDate-cont">
+				<font>Start Date :</font><br>
+				<date-picker1></date-picker1>	
+			</div>
+			<div class="rp-endDate-cont">
+				<font>End Date :</font><br>
+				<date-picker2></date-picker2>	
+			</div>
+			<div class="rp-goToDate-cont">
+				<button class="btn btn-secondary db-go" ng-click="datePicker()">Go</button>
+			</div>		
+		</div>
+
+		<div class="row rp-infoBox-cont">
+			<!-- <div class="rp-infoBox rp-infoBox1">
+				<div class="rp-infoBox-label-cont">
+					<font class="rp-infoBox-label rp-infoBox-label1" ng-click="currentBalanceChart()">Current Wallet Balance</font><br>
+					<font class="rp-infoBox-val count">P{{currentBalance == null ? '0.00' : currentBalance | number : 2}}</font>
+				</div>
+			</div>
+			<div class="rp-infoBox rp-infoBox2">
+				<div class="rp-infoBox-label-cont">
+					<font class="rp-infoBox-label rp-infoBox-label2" ng-click="totalSalesChart()">Total Sales</font><br>
+					<font class="rp-infoBox-val count1">P{{totalSales == null ? '0.00' : totalSales | number : 2}}</font>
+				</div>
+			</div>
+			<div class="rp-infoBox rp-infoBox3">
+				<div class="rp-infoBox-label-cont">
+					<font class="rp-infoBox-label rp-infoBox-label3" ng-click="totalEarningsChart()">Total Earnings</font><br>
+					<font class="rp-infoBox-val count">P{{totalEarnings == null ? '0.00' : totalEarnings | number : 2}}</font>
+				</div>
+			</div> -->
+			<div class="rp-infoBox rp-infoBox4">
+				<div class="rp-infoBox-label-cont">
+					<font class="rp-infoBox-label rp-infoBox-label4" ng-click="totalTransChartAll()">Total Transactions</font><br>
+					<font class="rp-infoBox-val">{{totalTransSuccess}}/{{totalTransAll}}</font>
+				</div>
+			</div>
+			<div class="rp-infoBox rp-infoBox5">
+				<div class="rp-infoBox-label-cont">
+					<font class="rp-infoBox-label rp-infoBox-label5" ng-click="totalOprBalanceClicked()">Operators Current Wallet Balance</font><br>
+					<font class="rp-infoBox-val">P{{totalOperatorBalance == null ? '0.00' : totalOperatorBalance | number : 2}}</font>
+				</div>
+			</div>
+			<div class="rp-infoBox rp-infoBox6">
+				<div class="rp-infoBox-label-cont">
+					<font class="rp-infoBox-label rp-infoBox-label6" ng-click="totalRemainingLoadClicked()">{{userType == 'admin' ? 'Machines Total Remaining Load' : 'Total Remaining Load'}}</font><br>
+					<font class="rp-infoBox-val">P{{totalRemainingLoad == null ? '0.00' : totalRemainingLoad | number : 2}}</font>
+				</div>
+			</div>
+			<div class="rp-infoBox rp-infoBox7">
+				<div class="rp-infoBox-label-cont">
+					<font class="rp-infoBox-label rp-infoBox-label7" ng-click="totalVendoLoadClicked()">{{userType == 'admin' ? 'Total Machines w/ Load' : 'Total Vendo w/ Load'}}</font><br>
+					<font class="rp-infoBox-val">{{countMacWithBalance == null ? '0' : countMacWithBalance}}</font>
+				</div>
+			</div>
+		</div>
+
+		<div class="row rp-details-cont">
+			<div class="rp-currentWalletBalance-cont">
+				<div class="rp-chart-tab">
+					<ul class="nav nav-pills rp-nav-pills" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active rp-details-line db-trans-line" href="#" data-toggle="pill" role="tab" aria-selected="true">Line</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link rp-details-bar db-trans-bar" href="#" data-toggle="pill" role="tab" aria-selected="false">Bar</a>
+						</li>
+					</ul>
+				</div>
+				<div class="rp-chart">
+					<canvas id="rp-canvas1"></canvas>
+					<canvas id="rp-canvas2"></canvas>
+				</div>
+				<!-- <div class="rp-summary">
+					<font>Total Deduction : &nbsp; P{{totalDeduction | number : 2}}</font><br>
+				</div> -->
+			</div>
+
+			<div class="rp-totalSales-cont">
+				<div class="rp-chart-tab">
+					<ul class="nav nav-pills rp-nav-pills" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active rp-details-line" href="#" data-toggle="pill" role="tab" aria-selected="true">Line</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link rp-details-bar" href="#" data-toggle="pill" role="tab" aria-selected="false">Bar</a>
+						</li>
+					</ul>
+				</div>
+				<div class="rp-chart">
+					<canvas id="rp-canvas3"></canvas>
+					<canvas id="rp-canvas4"></canvas>
+				</div>
+				<div class="rp-summary">
+					<font>Total Sales : &nbsp; P{{totalSales | number : 2}}</font><br>
+				</div>
+			</div>
+
+			<div class="rp-totalEarnings-cont">
+				<div class="rp-chart-tab">
+					<ul class="nav nav-pills rp-nav-pills" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active rp-details-line" href="#" data-toggle="pill" role="tab" aria-selected="true">Line</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link rp-details-bar" href="#" data-toggle="pill" role="tab" aria-selected="false">Bar</a>
+						</li>
+					</ul>
+				</div>
+				<div class="rp-chart">
+					<canvas id="rp-canvas5"></canvas>
+					<canvas id="rp-canvas6"></canvas>
+				</div>
+				<div class="rp-summary">
+					<font>Total Sales : &nbsp; P{{totalEarnings | number : 2}}</font><br>
+				</div>
+			</div>
+
+			<div class="rp-totalTransactions-cont">
+				<div class="rp-chart-tab">
+					<ul class="nav nav-pills rp-nav-pills" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active rp-details-line" href="#" data-toggle="pill" role="tab" aria-selected="true">Bar</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link rp-details-bar" href="#" data-toggle="pill" role="tab" aria-selected="false">Line</a>
+						</li>
+					</ul>
+				</div>
+				<div class="rp-chart">
+					<canvas id="rp-canvas7"></canvas>
+					<canvas id="rp-canvas8"></canvas>
+				</div>
+				<div class="rp-summary">
+					<font>Total Success Transactions : &nbsp; {{totalTransSuccess == null ? '0' : totalTransSuccess}}</font><br>
+					<font>Total Failed Transactions : &nbsp; {{totalTransFailed == null ? '0' : totalTransFailed}}</font><br>
+					<font>Total Transactions : &nbsp; {{totalTransAll == null ? '0' : totalTransAll}}</font><br>
+				</div>
+			</div>
+
+			<div class="rp-totalOprBalance-cont">
+				<div class="rp-details-table-cont">
+					<table class="table table-striped rp-details-table">
+						<thead>
+							<tr class="">
+								<th>Operator</th>
+								<th>Current Balance</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="" ng-repeat="opr in operatorsBalance">
+								<td><a href="/{{userType}}/reports/operators?opr={{opr.operator}}">{{opr.operator}}</a></td>
+								<td>P{{opr.balance | number : 2}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="rp-summary">
+					<font>Total Operator Balance : &nbsp; P{{totalOperatorBalance | number : 2}}</font><br>
+				</div>
+			</div>
+
+			<div class="rp-totalRemLoad-cont">
+				<div class="rp-selectOpr-cont">
+					<select class="rp-selectOpr">
+						<option selected disabled placeholder>Select Operator</option>
+						<option ng-repeat="opr in operatorsBalance">{{opr.operator}}</option>
+					</select>
+				</div>
+				<div class="rp-details-table-cont">
+					<table class="table table-striped rp-details-table">
+						<thead>
+							<tr class="">
+								<th>Mac</th>
+								<th>Site</th>
+								<th>Operator</th>
+								<th>Current Load</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="" ng-repeat="mac in macsRemainingLoad">
+								<td><a href="/{{userType}}/reports/macs?mac={{mac.mac}}">{{mac.mac}}</a></td>
+								<td>{{mac.site == '' ? '-----' : mac.site}}</td>
+								<td><a href="/{{userType}}/reports/operators?opr={{mac.operator}}">{{mac.operator}}</a></td>
+								<td>{{mac.balance | number : 2}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="rp-summary">
+					<font>Total Load : &nbsp; P{{totalLoad | number : 2}}</font><br>
+				</div>
+			</div>
+
+			<div class="rp-totalVendoLoad-cont">
+				<!-- <div class="rp-selectOpr-cont">
+					<select class="rp-selectOpr2">
+						<option selected disabled placeholder>Select Operator</option>
+						<option ng-repeat="opr in operatorsBalance">{{opr.operator}}</option>
+					</select>
+				</div> -->
+				<div class="rp-details-table-cont">
+					<table class="table table-striped rp-details-table">
+						<thead>
+							<tr class="">
+								<th>Mac</th>
+								<th>Site</th>
+								<th>Operator</th>
+								<th>Current Load</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="" ng-repeat="mac in macsRemainingLoad">
+								<td><a href="/{{userType}}/reports/macs?mac={{mac.mac}}">{{mac.mac}}</a></td>
+								<td>{{mac.site == '' ? '-----' : mac.site}}</td>
+								<td><a href="/{{userType}}/reports/operators?opr={{mac.operator}}">{{mac.operator}}</a></td>
+								<td>{{mac.balance | number : 2}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="rp-summary">
+					<font>Total Vendo w/ Load : &nbsp; {{countMacWithBalance}}</font><br>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="rp-transactionLogs-cont">
+			<div class="rows rp-transactionLogs-label">
+				<font>Transaction Logs</font> &nbsp;
+				<button class="btn btn-secondary" ng-click="downloadTransactionLogs()">Export Transaction Logs</button>
+			</div>
+			<div class="rp-transactionLogs-table-cont">
+				<table class="table table-striped rp-transactionLogs-table">
+					<thead>
+						<tr class="rp-align-center">
+							<th>Datetime</th>
+							<th>Mac</th>
+							<th ng-hide="hideAdminBalance">Admin Balance</th>
+							<th>Mac Balance</th>
+							<th>Promo Code</th>
+							<th ng-hide="hideAdmProdCost">Adm Product Cost</th>
+							<th ng-hide="hideAdmPubPrice">Adm Publish Price</th>
+							<th ng-hide="hideAdmProCostEarning">Adm ProCostEarning</th>
+							<th ng-hide="hideAdmRev">Adm Revenue</th>
+							<th>{{ userType == 'admin' ? 'Opr Product Cost' : 'Product Cost' }}</th>
+							<th>{{ userType == 'admin' ? 'Opr Publish Price' : 'Publish Price' }}</th>
+							<th ng-hide="">{{ userType == 'admin' ? 'Opr Service Charge' : 'Service Charge'}}</th>
+							<th>{{ userType == 'admin' ? 'Opr ProCostEarning' : 'ProCostEarning' }}</th>
+							<th>{{ userType == 'admin' ? 'Opr Revenue' : 'Revenue' }}</th>
+							<th>Status</th>
+							<th>Provider</th>
+							<th>Site</th>
+							<th ng-hide="hideOwner">Owner</th>
+							<th>userMac</th>
+							<th>Mobile Number</th>
+							<th>Transaction ID</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="rp-align-center" ng-repeat="log in transactionLogs">
+							<td>{{ log.dateCreated }}</td>
+							<td><a href="/{{userType}}/reports/macs?mac={{log.routerMac}}">{{ log.routerMac }}</a></td>
+							<td ng-hide="hideAdminBalance">P{{ log.bal | number : 2 }}</td>
+							<td>P{{ log.mac_bal | number : 2 }}</td>
+							<td>{{ log.productCode }}</td>
+							<td ng-hide="hideAdmProdCost">P{{ log.loadcentral_price | number : 2 }}</td>
+							<td ng-hide="hideAdmPubPrice">P{{ log.admin_price | number : 2 }}</td>
+							<td ng-hide="hideAdmProCostEarning">P{{ log.response_code == '0' ? log.base_price - log.loadcentral_price : '0' | number : 2 }}</td>
+							<td ng-hide="hideAdmRev">P{{ log.admin_revenue | number : 2 }}</td>
+							<td>P{{ log.admin_price | number : 2 }}</td>
+							<td>P{{ log.operator_price | number : 2 }}</td>
+							<td>P{{ log.service_charge == null ? '0.00' : log.service_charge | number : 2 }}</td>
+							<td>P{{ log.response_code == '0' ? log.base_price - log.admin_price : '0' | number : 2 }}</td>
+							<td>P{{ log.opr_revenue | number : 2 }}</td>
+							<td>{{ log.err }}</td>
+							<td>{{ log.provider }}</td>
+							<td>{{ log.site == '' ? '-----' : log.site }}</td>
+							<td ng-hide="hideOwner"><a href="/{{userType}}/reports/operators?opr={{log.operator}}">{{ log.operator }}</a></td>
+							<td>{{ log.userMac }}</td>
+							<td>{{ log.mobileNum }}</td>
+							<td>{{ log.tid == '' ? 'No TID, Failed' : log.tid }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+		<div class="rp-footer"></div>
+	</div>
+	<div class="footer"></div>
+</div>
+
+
+<style type="text/css">
+	.rp-content-cont{
+		min-height: 1px;
+		height: auto;
+		width: 96%;
+		background-color: white;
+		margin: 20px auto auto auto;
+	}
+	.rp-reports-label{
+		margin: auto auto auto 10px;
+		font-size: 20pt;
+		font-family: Arial, serif;
+		font-weight: 600;
+	}
+	.rep{
+		font-size: 10pt;
+		font-family: Arial, serif;
+		font-weight: 600;
+	}
+	.rp-datepicker-cont{
+		margin: auto auto auto 20px;
+	}
+	.rp-startDate-cont font, .rp-endDate-cont font{
+		font-size: 10pt;
+		font-family: Arial, serif;
+		font-weight: 600;
+	}
+	.rp-start-date, .rp-end-date{
+		margin-right: 20px;
+	}
+	.rp-goToDate-cont{	
+		margin-top: 20px;
+	}
+	.rp-goToDate-cont button, .rp-transactionLogs-cont button{
+		font-size: 10pt;
+	}
+	/*-----------------------------------------------------*/
+	.rp-infoBox-cont{
+		height: auto;
+		width: 95%;
+		margin: 20px auto auto auto;
+	}
+	.rp-infoBox{
+		min-height: 80px;
+		height: auto;
+		width: 23%;
+		margin: auto auto 20px auto;
+		background-color: #E9E9E9;
+		border-radius: 8px;
+		/*border: 1px solid #404040;*/
+		display: flex;
+    	align-items: center;
+	}
+	.rp-infoBox1{
+		background-color: #ED7D31
+	}
+	.rp-infoBox2{
+		background-color: #5B9BD5
+	}
+	.rp-infoBox3{
+		background-color: #70AD47
+	}
+	.rp-infoBox4{
+		background-color: #44546A
+	}
+	.rp-infoBox5{
+		background-color: #23272B
+	}
+	.rp-infoBox6{
+		background-color: #880015
+	}
+	.rp-infoBox7{
+		background-color: #408080
+	}
+	.rp-infoBox-label-cont{
+		width: 85%;
+		font-family: Arial, serif;
+		font-weight: 600;
+		margin: auto;
+		color: #E9E9E9;
+	}
+	.rp-infoBox-label{
+		font-size: 10pt;
+		cursor: pointer;
+	}
+	.rp-infoBox-label:hover{
+		font-size: 11pt;
+	}
+	.rp-infoBox-val{
+		font-size: 15pt;
+		color: white;
+	}
+
+	/*-----------------------------------------------------*/
+	.rp-details-cont{
+		height: auto;
+		width: 95%;
+		margin: 20px auto auto auto;
+		border-top: 1px solid #E9E9E9
+	}
+	.rp-currentWalletBalance-cont, .rp-totalSales-cont, .rp-totalEarnings-cont,
+	.rp-totalTransactions-cont, .rp-totalOprBalance-cont, .rp-totalRemLoad-cont,
+	.rp-totalVendoLoad-cont{
+		height: auto;
+		width: 95%;
+		margin: 20px auto auto auto;
+		/*border: 1px solid black*/
+	}
+	.rp-chart{
+		height: 200px;
+		width: 100%;
+		border: 1px solid #E9E9E9;
+		margin-top: 10px;
+	}
+	#rp-canvas2, #rp-canvas4, #rp-canvas6, #rp-canvas7{
+		display: none !important;
+	}
+	.rp-summary{
+		margin-top: 20px;
+		font-size: 11pt;
+		font-family: Arial, serif;
+		font-weight: 600;
+	}
+	/*.rp-trans-summary{
+		margin-top: 20px;
+		font-size: 11pt;
+		font-family: Arial, serif;
+		font-weight: 600;
+		color: #4BB2E2;
+		cursor: pointer;
+	}
+	.rp-trans-summary font:hover{
+		text-decoration: underline;
+	}*/
+	.rp-details-table-cont{
+		max-height: 200px;
+		width: 90%;
+		overflow-y: auto;
+		margin: auto;
+	}
+	.rp-details-table th, .rp-transactionLogs-table th{
+		white-space: nowrap;
+		font-size: 10pt;
+		font-family: Verdana, sans-serif;
+		font-weight: 900;
+		padding: 5px 5px 5px 5px;
+	}
+	.rp-details-table td, .rp-transactionLogs-table td{
+		white-space: nowrap;
+		font-size: 9pt;
+		font-family: Verdana, sans-serif;
+		font-weight: 500;
+		color: black;
+		padding: 5px 5px 5px 5px;
+	}
+	.rp-selectOpr-cont{
+		width: 90%;
+		margin: auto auto 20px auto;
+		font-size: 10pt;
+	}
+	.rp-selectOpr-cont select{
+		height: 25px;
+		width: 150px;
+	}
+	.rp-currentWalletBalance-cont, .rp-totalSales-cont, .rp-totalEarnings-cont,
+	.rp-totalOprBalance-cont, .rp-totalRemLoad-cont, .rp-totalVendoLoad-cont{
+		display: none;
+	}
+	.rp-align-center{
+		text-align: center;
+	}
+	/*-----------------------------------------------------*/
+	.rp-transactionLogs-cont{
+		height: auto;
+		width: 95%;
+		margin: 40px auto auto auto;
+		border-top: 1px solid #E9E9E9
+	}
+	.rp-transactionLogs-label{
+		margin-top: 20px;
+		font-size: 15pt;
+		font-family: Arial, serif;
+		font-weight: 600;
+		/*border: 1px solid black*/
+	}
+	.rp-transactionLogs-table-cont{
+		max-height: 320px;
+		width: 100%;
+		overflow-y: auto;
+		margin-top: 20px;
+		/*border: 1px solid black*/
+	}
+	.rp-transactionLogs-table td{
+		font-size: 9pt;
+	}
+
+
+
+
+	.rp-header{
+		height: 10px;
+		width: 100%;
+		background-color: white;
+	}
+	.rp-footer{
+		height: 20px;
+		width: 100%;
+		background-color: white;
+	}
+</style>
+
+<!-- <h4 class="reports-xx">Reports Here</h4>
+
+<div>
+	<font>dhdhd
+		<date-picker class="xxx"></date-picker>
+	</font>	
+</div>
+
+<div>
+	<form action = "/admin/upload_csv" method = "POST" 
+		enctype = "multipart/form-data">
+		<input type = "file" name = "file" />
+	 	<input type = "submit"/>
+ 	</form>
+</div>
+
+<dir>
+	<form action = "/admin/upload_for_carousel" method = "POST"
+		enctype = "multipart/form-data">
+		<input type = "file" name = "login_carousel" multiple/>
+	 	<input type = "submit"/>
+ 	</form>
+</dir> -->
+
+
+

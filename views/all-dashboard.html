@@ -1,0 +1,274 @@
+<div class="main">
+	<!-- <div class="db-chart-tabxx" style="margin: 20px 0 0 20px">
+		<ul class="nav nav-pills db-nav-pills" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active db-main-daily" ng-click="main_info('daily')" href="#" data-toggle="pill" role="tab" aria-selected="true">Daily</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link db-main-daily" ng-click="main_info('weekly')" href="#" data-toggle="pill" role="tab" aria-selected="false">Weekly</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link db-main-monthly" ng-click="main_info('monthly')" href="#" data-toggle="pill" role="tab" aria-selected="false">Monthly</a>
+			</li>
+		</ul>
+	</div> -->
+	<div class="row rp-datepicker-cont">
+		<div class="rp-startDate-cont">
+			<font>Start Date :</font><br>
+			<date-picker1></date-picker1>	
+		</div>
+		<div class="rp-endDate-cont">
+			<font>End Date :</font><br>
+			<date-picker2></date-picker2>	
+		</div>
+		<div class="rp-goToDate-cont">
+			<button class="btn btn-secondary db-go" ng-click="datePicker()">Go</button>
+		</div>		
+	</div>
+
+	<div class="row db-info-cont" ng-init="init(prevDate, currentDate)">
+		<div class="row db-info-box db-info-box-1">
+			<div class="db-label-cont">
+				<font class="db-label-text" data-toggle="tooltip" title="" data-placement="right">{{userType == 'admin' ? 'Total Current Wallet Balance' : 'Operator Current Wallet Balance'}}</font><br>
+				<div class="db-label-val">
+					<font>P{{currentBalance | number : 2}}</font>
+				</div>
+			</div>
+		</div>
+		<div class="row db-info-box db-info-box-2">
+			<div class="db-label-cont">
+				<font class="db-label-text" data-toggle="tooltip" title="" data-placement="right">{{userType == 'admin' ? 'Total Wallet Transferred' : 'Total Sales'}}</font><br>
+				<div class="db-label-val">
+					<font>P{{userType == 'admin' ? totalDistributedLoad == null ? '0' : totalDistributedLoad : totalSales == null ? '0' : totalSales | number : 2}}</font>
+				</div>
+			</div>
+		</div>
+		<div class="row db-info-box db-info-box-3">
+			<div class="db-label-cont">
+				<font class="db-label-text" data-toggle="tooltip" title="" data-placement="right">{{userType == 'admin' ? 'Total Sales' : 'Total Cost of Sales'}}</font><br>
+				<div class="db-label-val">
+					<font>P{{userType == 'admin' ? totalSales == null ? '0' : totalSales : totalCostSales == null ? '0' : totalCostSales | number : 2}}</font>
+				</div>
+			</div>
+		</div>
+		<div class="db-info-box db-info-box-4">
+			<div class="db-label-cont">
+				<font class="db-label-text" data-toggle="tooltip" title="" data-placement="right">{{userType == 'admin' ? 'Total Cost of Sales' : 'Total Gross Profit'}}</font><br>
+				<div class="db-label-val">
+					<font>P{{userType == 'admin' ? totalCostSales == null ? '0' : totalCostSales : totalSales - totalCostSales | number : 2}}</font>
+				</div>
+			</div>
+		</div>
+		<div class="db-info-box db-info-box-5">
+			<div class="db-label-cont">
+				<font class="db-label-text" data-toggle="tooltip" title="" data-placement="right">{{userType == 'admin' ? 'Total Gross Income' : 'Total Service Charge'}}</font><br>
+				<div class="db-label-val">
+					<font>P{{userType == 'admin' ? totalSales - totalCostSales : totalServiceCharge == null ? '0' : totalServiceCharge | number : 2}}</font>
+				</div>
+			</div>
+		</div>
+		<div class="db-info-box db-info-box-6">
+			<div class="db-label-cont">
+				<font class="db-label-text" data-toggle="tooltip" title="" data-placement="right">{{userType == 'admin' ? '' : 'Total Gross Income'}}</font><br>
+				<div class="db-label-val">
+					<font>P{{userType == 'admin' ? '' : (totalSales - totalCostSales) + totalServiceCharge | number : 2}}</font>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- <div class="row db-chart-cont">
+		<div class="db-balance-chart" ng-init="balance_chart('daily')">
+			<div class="row db-chart-label">
+				<font>Balance</font>
+				<ul class="nav nav-tabs">
+					<li class="nav-item">
+						<a class="nav-link db-bal-line">Line</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link db-bal-bar">Bar</a>
+					</li>
+				</ul>
+			</div>
+			<div class="db-chart-tab">
+				<ul class="nav nav-pills db-nav-pills" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active db-bal-daily" ng-click="balance_chart('daily')" href="#" data-toggle="pill" role="tab" aria-selected="true">Daily</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link db-bal-monthly" ng-click="balance_chart('weekly')" href="#" data-toggle="pill" role="tab" aria-selected="false">Weekly</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link db-bal-monthly" ng-click="balance_chart('monthly')" href="#" data-toggle="pill" role="tab" aria-selected="false">Monthly</a>
+					</li>
+				</ul>
+			</div>
+			<div class="db-chart-canvas">
+				<canvas id="canvas1"></canvas>
+				<canvas id="canvas2"></canvas>
+			</div>	
+		</div>
+		<div class="db-earnings-chart" ng-init="earnings_chart('daily')">
+			<div class="row db-chart-label">
+				<font>Revenue</font>
+				<ul class="nav nav-tabs">
+					<li class="nav-item">
+						<a class="nav-link db-earn-line">Line</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link db-earn-bar">Bar</a>
+					</li>
+				</ul>
+			</div>
+			<div class="db-chart-tab">
+				<ul class="nav nav-pills db-nav-pills" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active db-earn-daily" ng-click="earnings_chart('daily')" href="#" data-toggle="pill" role="tab" aria-selected="true">Daily</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link db-earn-monthly" ng-click="earnings_chart('weekly')" href="#" data-toggle="pill" role="tab" aria-selected="false">Weekly</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link db-earn-monthly" ng-click="earnings_chart('monthly')" href="#" data-toggle="pill" role="tab" aria-selected="false">Monthly</a>
+					</li>
+				</ul>
+			</div>
+			<div class="db-chart-canvas2">
+				<canvas id="canvas3"></canvas>
+				<canvas id="canvas4"></canvas>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="row db-chart-cont">
+		<div class="db-transactions-chart" ng-init="transactions_chart('daily')">
+			<div class="row db-chart-label">
+				<ul class="nav nav-pills db-nav-pills" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link db-trans-line" href="#" data-toggle="pill" role="tab" aria-selected="true">Line</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active db-trans-bar" href="#" data-toggle="pill" role="tab" aria-selected="false">Bar</a>
+					</li>
+				</ul>
+			</div>
+			<!-- <div class="db-chart-tab">
+				<ul class="nav nav-pills db-nav-pills" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active db-trans-daily" ng-click="transactions_chart('daily')" href="#" data-toggle="pill" role="tab" aria-selected="true">Daily</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link db-trans-monthly" ng-click="transactions_chart('weekly')" href="#" data-toggle="pill" role="tab" aria-selected="false">Weekly</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link db-trans-monthly" ng-click="transactions_chart('monthly')" href="#" data-toggle="pill" role="tab" aria-selected="false">Monthly</a>
+					</li>
+				</ul>
+			</div> -->
+			<div class="db-chart-canvas">
+				<canvas id="canvas5"></canvas>
+				<canvas id="canvas6"></canvas>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer"></div>
+</div>
+
+
+<style type="text/css">
+	.rp-datepicker-cont{
+		margin: auto auto auto 20px;
+	}
+	.rp-startDate-cont font, .rp-endDate-cont font{
+		font-size: 10pt;
+		font-family: Arial, serif;
+		font-weight: 600;
+	}
+	.rp-start-date, .rp-end-date{
+		margin-right: 20px;
+	}
+	.rp-goToDate-cont{	
+		margin-top: 20px;
+	}
+	.rp-goToDate-cont button, .rp-transactionLogs-cont button{
+		font-size: 10pt;
+	}
+	.db-info-cont{
+		height: auto;
+		width: 95%;
+		margin: 20px auto auto auto;
+	}
+	.db-info-box{
+		min-height: 80px;
+		height: auto;
+		width: 23%;
+		margin: auto auto 20px auto;
+		background-color: #E9E9E9;
+		border-radius: 8px;
+		/*border: 1px solid #404040;*/
+		display: flex;
+    	align-items: center;
+	}
+	.db-info-box-1{
+		background-color: #ED7D31;
+	}
+	.db-info-box-2{
+		background-color: #880015;
+	}
+	.db-info-box-3{
+		background-color: #408080;
+	}
+	.db-info-box-4{
+		background-color: #5B9BD5;
+	}
+	.db-info-box-5{
+		background-color: #70AD47;
+	}
+	.db-info-box-6{
+		background-color: #44546A;
+	}
+	.db-label-cont{
+		margin-left: 10px;
+	}
+	.db-label-text{
+		font-size: 9pt;
+		font-weight: bold;
+		color: #E9E9E9;
+		font-family: Helvetica, sans-serif;
+	}
+	.db-label-val{
+		font-size: 16pt;
+		font-family: Arial, serif;
+		font-weight: 600;
+		color: white; 
+	}
+	.db-chart-cont{
+		height: 280px;
+		width: 96%;
+		margin: auto;
+	}
+	.db-transactions-chart{
+		height: 100%;
+		width: 96%;
+		background-color: white;
+		margin: auto;
+	}
+	.db-chart-label{
+		width: 98%;
+		margin: 10px auto auto auto;
+		font-size: 20pt;
+		font-family: Arial, serif;
+		font-weight: 600;
+	}
+	.db-chart-label ul{
+		margin-top: 5px;
+		font-weight: 500;
+	}
+	.db-chart-canvas{
+		height: 230px;
+		width: 96%;
+		margin: auto;
+	}
+
+</style>

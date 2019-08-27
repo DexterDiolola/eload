@@ -1,0 +1,160 @@
+<div class="main">
+	<div class="sett-cont">
+		<div class="sett-changepass-cont">
+			<div class="sett-changepass-label">
+				<font>Change Password</font>
+			</div>
+			<div class="sett-form-table">
+				<table class="table table-sm table-striped">
+					<tr>
+						<th>Enter Password</th>
+						<th><input class="sett-password" type="password"></th>
+					</tr>
+					<tr>
+						<th>New Password</th>
+						<th><input class="sett-new-password" type="password"></th>
+					</tr>
+					<tr>
+						<th>Confirm Password</th>
+						<th><input class="sett-confirm-password" type="password"></th>
+					</tr>
+				</table>
+				<div class="sett-changepass-button-cont">
+					<button class="btn sett-changepass-button" type="submit" ng-click="change_password()">Change</button>
+				</div>
+				<div class="sett-changepass-err-cont">
+					<label class="sett-changepass-err"></label>
+				</div>
+			</div>
+		</div>
+
+		<div class="sett-changeemail-cont">
+			<div class="sett-changeemail-label">
+				<font>Change Email</font>
+			</div>
+			<div class="sett-changeemail-form">
+				<form>
+					<input type="text" class="sett-email" name="email" placeholder="Email"><br>
+					<button class="btn sett-changeemail-button" type="submit" ng-click="change_email()">Change</button>
+				</form>
+				<div class="sett-changeemail-err-cont">
+					<font class="sett-changeemail-err"></font>
+				</div>
+			</div>
+			<div class="sett-footer"></div>
+		</div>
+
+		<div class="sett-uplcarousel-cont" ng-hide="hideUploadCarousel">
+			<div class="sett-uplcarousel-label">
+				<font>Change Login Carousel Images</font>
+			</div>
+			<div class="sett-uplcarousel-form">
+				<label>Select 3 image files (.jpg, .png)</label>
+				<form action = "/admin/upload_for_carousel" method = "POST"
+					enctype = "multipart/form-data">
+					<input type = "file" name = "login_carousel" multiple/>
+				 	<input type = "submit"/>
+			 	</form>
+			</div>
+		</div>
+		
+		
+	</div>
+</div>
+
+
+<style type="text/css">
+	.sett-cont{
+		height: auto;
+		width: 96%;
+		margin: 20px auto auto auto;
+		background-color: white;
+	}
+	.sett-changepass-cont{
+		width: 98%;
+		height: 240px;
+		margin: auto;
+		border: 1px solid white;
+	}
+	.sett-changepass-label, .sett-uplcarousel-label, .sett-changeemail-label{
+		width: 98%;
+		margin: 10px auto auto auto;
+		font-size: 15pt;
+		font-family: Verdana, serif;
+		font-weight: 600;
+	}
+	.sett-form-table{
+		width: 50%;
+		margin: 10px auto auto 20px;
+		font-size: 10pt;
+	}
+	.sett-changepass-button-cont{
+		width: 200px;
+		margin: auto;
+	}
+	.sett-changepass-button{
+		height: 35px;
+		width: 100%;
+		padding: 0;
+		background-color: #7C7C7C;
+		color: white;
+	}
+	.sett-changepass-err{
+		font-size: 11pt;
+		color: red;
+	}
+	.sett-changepass-err-cont{
+		width: 100%;
+		margin: 10px auto auto auto;
+		text-align: center;
+	}
+
+	.sett-uplcarousel-cont, .sett-changeemail-cont{
+		width: 98%;
+		height: 150px;
+		margin: auto;
+		border-top: 1px solid #9A9A85;
+		/*border: 1px solid black*/
+	}
+	.sett-uplcarousel-form, .sett-changeemail-form{
+		width: 95%;
+		margin: 10px auto auto auto;
+		font-size: 12pt;
+	}
+	.sett-uplcarousel-form label{
+		font-size: 10pt;
+		font-family: Arial, serif;
+		font-weight: 600;
+	}
+
+	.sett-changeemail-cont{
+		width: 98%;
+		height: auto;
+		margin: auto;
+		border-top: 1px solid #9A9A85;
+	}
+	.sett-changeemail-form input{
+		width: 200px;
+	}
+	.sett-changeemail-form button{
+		height: 35px;
+		width: 200px;
+		padding: 0;
+		margin-top: 10px;
+		background-color: #7C7C7C;
+		color: white;
+	}
+	.sett-changeemail-err-cont{
+		width: 200px;
+		margin-top: 5px;
+		margin-bottom: 10px;
+	}
+	.sett-changeemail-err{
+		font-size: 11pt;
+		color: red;
+	}
+	.sett-footer{
+		height: 20px;
+	}
+
+</style>

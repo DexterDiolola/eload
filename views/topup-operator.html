@@ -1,0 +1,77 @@
+<div class="main">
+	<div class="tp-topup-cont" style="height: 560px">
+		<div class="tp-topup-label">
+			<div><font>Top Up</font></div>
+		</div>
+		<div class="tp-topup-table-cont">
+			<table class="table table-striped tp-topup-table">
+				<thead>
+					<tr class="tp-macs-header">
+						<th><b>Mac</b></th>
+						<th><b>Site</b></th>
+						<th style="text-align: center;"><b>Current Balance</b></th>
+						<th style="text-align: center;"><b>Amount</b></th>
+						<th style="text-align: center;"><b>Add</b></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="mac in macs">
+						<td><a href="/operator/load_wallet/macs?mac={{mac.mac}}">{{mac.mac}}</a></td>
+						<td>{{mac.site == '' ? '-----' : mac.site}}</td>
+						<td style="text-align: center;">{{mac.balance | number : 2}}</td>
+						<td style="text-align: center;">
+							<select class="tp-val-option_{{$index}}">
+								<option selected disabled>-----</option>
+								<option>2000</option>
+								<option>3000</option>
+								<option>4000</option>
+								<option>5000</option>
+								<option>6000</option>
+								<option>7000</option>
+								<option>8000</option>
+								<option>9000</option>
+								<option>10000</option>
+							</select>
+						</td>
+						<td class="tp-topup-button">
+							<button class="btn" type="button" ng-click="add_balance_mac($index, mac.mac)">Add Balance</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div style="border-top: 1px solid #898989; width: 98%; margin: 20px auto 0 auto;"></div>
+		
+		<div class="tp-topup-label">
+			<div>
+				<font>History</font>
+				<div class="">
+					
+				</div>
+			</div>
+			<ul class="nav nav-pills tp-nav-pills" role="tablist" style="font-weight: 400">
+				<li class="nav-item">
+					<a class="nav-link active tp-show-daily" href="#" ng-click="topup_history('daily')" data-toggle="pill" role="tab" aria-selected="true">Daily</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link tp-show-weekly" href="#" ng-click="topup_history('weekly')" data-toggle="pill" role="tab" aria-selected="false">Weekly</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link tp-show-monthly" href="#" ng-click="topup_history('monthly')" data-toggle="pill" role="tab" aria-selected="false">Monthly</a>
+				</li>
+			</ul>
+		</div>
+		<div class="tp-history-cont">
+			<div class="tp-history">
+				<table class="table table-striped tp-topup-table">
+					<tr ng-repeat = "tp in tp_history">
+						<td><b>{{tp.dateCreated}}</b> - {{tp.mac != tp.operator ? ' You distributed ' + tp.topup + ' load balance to ' + tp.mac  : 'Administrator loaded ' + tp.topup + ' distributable balance to you'}}.</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer"></div>
+</div>

@@ -1,0 +1,88 @@
+<div class="main">
+	<div class="bl-balance-cont">
+		<div class="bl-balance-label">
+			<font>Wallet Balance &nbsp; <i class="fa fa-refresh" ng-click="reload()" style=" color: #44546A; cursor: pointer;"></i></font>
+			<div class="bl-search-box">
+				<select class="bl-select-mac">
+					<option selected disabled placeholder>Select Mac</option>
+					<option ng-repeat="mac in macs">{{mac.mac}}</option>
+				</select>	&nbsp;
+			</div>
+		</div>
+		<div class="bl-balance-tab">
+			<ul class="nav nav-pills bl-nav-pills" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active bl-show-daily" href="#" ng-click="balance_table('daily')" data-toggle="pill" role="tab" aria-selected="true">Daily</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link bl-show-monthly" href="#" ng-click="balance_table('weekly')" data-toggle="pill" role="tab" aria-selected="false">Weekly</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link bl-show-monthly" href="#" ng-click="balance_table('monthly')" data-toggle="pill" role="tab" aria-selected="false">Monthly</a>
+				</li>
+			</ul>
+		</div>
+		<div class="bl-balance-table" ng-init="balance_table('daily')">
+			<table class="table table-striped bl-table">
+				<tr>
+					<td class="bl-td-label" >{{occ}} :</td>
+					<td width="500px" class="bl-td-label" ng-repeat="date in dates">{{date.date}}</td>
+				</tr>
+				<tr class="bl-tr-balance">
+					<td class="bl-td-label">Balance :</td>
+					<td width="500px" class="bl-td-content" ng-repeat="b in balance">P{{b.balance == None ? '00.00' : b.balance | number : 2}}</td>
+				</tr>
+				<tr class="bl-tr-deduct">
+					<td class="bl-td-label">Deducted :</td>
+					<td width="500px" class="bl-td-content" ng-repeat="d in deduction | orderBy : dateCreated">P{{d.deduction == '0' ? '00.00' : d.deduction | number : 2}}</td>
+				</tr>
+				<tr class="bl-tr-topup">
+					<td class="bl-td-label">Topup :</td>
+					<td width="500px" class="bl-td-content" ng-repeat="topup in deduction">P{{topup.topup == '0' ? '00.00' : topup.topup | number : 2}}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="bl-total-cont">
+			<div class="bl-total-label">
+				<font>Totals</font>
+			</div>
+			<div class="bl-total-table-cont">
+				<table class="table bl-total-table">
+					<tr>
+						<th>Total Deductions :</th>
+						<th>P{{_deduction | number : 2}}</th>
+					</tr>
+					<tr>
+						<th>Total Topup :</th>
+						<th>P{{_topup | number : 2}}</th>
+					</tr>
+				</table>	
+			</div>
+		</div>
+	</div>
+
+	<!-- <div class="bl-devices-cont">
+		<div class="bl-devices-label">
+			<font>Devices</font>
+		</div>
+		<div class="bl-devices-table-cont">
+			<table class="table table-striped bl-devices-table">
+				<tr class="bl-devices-header">
+					<th>Mac</th>
+					<th>Site</th>
+					<th>Owner</th>
+					<th>Balance</th>
+				</tr>
+				<tr ng-repeat="d in devices">
+					<td class="bl-find" ng-click="find_balance(d.mac)">{{d.mac}}</td>
+					<td>{{d.site == '' || d.site == null ? '-----' : d.site}}</td>
+					<td>{{d.operator == '' || d.operator == null ? '-----' : d.operator}}</td>
+					<td>P{{d.balance | number : 2}}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="bl-devices-footer"></div>
+	</div> -->
+
+	<div class="footer"></div>
+</div>

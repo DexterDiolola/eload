@@ -1,0 +1,59 @@
+<div class="main">
+	<div class="ea-earnings-cont">
+		<div class="ea-earnings-label">
+			<font>Earnings Table &nbsp; <i class="fa fa-refresh" style=" color: #44546A; cursor: pointer;" ng-click="reload()"></i></font>
+			<div class="ea-search-box">
+				<select class="ea-select-mac">
+					<option selected disabled placeholder>Select Mac</option>
+					<option ng-repeat="mac in macs">{{mac.mac}}</option>
+				</select>	&nbsp;
+			</div>
+		</div>
+		<div class="ea-earnings-tab">
+			<ul class="nav nav-pills ea-nav-pills" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active ea-show-daily" href="#" ng-click="earnings_table('daily')" data-toggle="pill" role="tab" aria-selected="true">Daily</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link ea-show-monthly" href="#" ng-click="earnings_table('weekly')" data-toggle="pill" role="tab" aria-selected="false">Weekly</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link ea-show-monthly" href="#" ng-click="earnings_table('monthly')" data-toggle="pill" role="tab" aria-selected="false">Monthly</a>
+				</li>
+			</ul>
+		</div>
+		<div class="ea-earnings-table" ng-init="earnings_table('daily')">
+			<table class="table table-striped ea-table">
+				<tr>
+					<td class="ea-td-label" >{{occ}} :</td>
+					<td class="ea-td-label" ng-repeat="date in dates">{{date.date}}</td>
+				</tr>
+				<tr class="ea-tr-earnings">
+					<td class="ea-td-label">Sales :</td>
+					<td class="ea-td-content" ng-repeat="s in sales">P{{s.sale == '0' ? '00.00' : s.sale | number : 2}}</td>
+				</tr>
+				<tr class="ea-tr-earnings">
+					<td class="ea-td-label">Revenue :</td>
+					<td class="ea-td-content" ng-repeat="s in sales">P{{s.revenue == '0' ? '00.00' : s.revenue | number : 2}}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="ea-total-cont">
+			<div class="ea-total-label">
+				<font>Totals</font>
+			</div>
+			<div class="ea-total-table-cont">
+				<table class="table ea-total-table">
+					<tr>
+						<th>Total Sales :</th>
+						<th>P{{totalsales | number : 2}}</th>
+					</tr>
+					<tr>
+						<th>Total Revenue :</th>
+						<th>P{{totalrevenue | number : 2}}</th>
+					</tr>
+				</table>	
+			</div>
+		</div>		
+	</div>
+</div>

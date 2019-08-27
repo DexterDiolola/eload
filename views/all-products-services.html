@@ -1,0 +1,107 @@
+<div class="main">
+	<div class="ps-setprice-cont">
+		<div class="row tp-topup-label">
+			<font>Product and Services</font>
+			<div class="tp-search-box">
+				<select class="tp-select-provider">
+					<option selected disabled placeholder>Search Provider</option>
+					<option>Globe</option>
+					<option>Smart</option>
+					<option>Sun</option>
+					<option>TM</option>
+					<option>TNT</option>
+					<option>PLDT</option>
+					<option>Bigo Live</option>
+					<option>Blizzard</option>
+					<option>Budget Card</option>
+					<option>Cherry Credits</option>
+					<option>Cignal</option>
+					<option>Click VoIP</option>
+					<option>Dragon Nest Mobile</option>
+					<option>ESET</option>
+					<option>GameClub</option>
+					<option>GAMEYEZ</option>
+					<option>Garena</option>
+					<option>Gpinoy</option>
+					<option>GSAT</option>
+					<option>Lead Hope</option>
+					<option>LevelUp</option>
+					<option>Marino</option>
+					<option>MIGME</option>
+					<option>Mobile Legends</option>
+					<option>PUBG</option>
+					<option>Pusoy Pinoy</option>
+					<option>R-Coin</option>
+					<option>Ragnarok Online Philippines</option>
+					<option>Ragnarok Online Mobile</option>
+					<option>Razer</option>
+					<option>Rohan Online</option>
+					<option>Rules of Survival</option>
+					<option>Sky</option>
+					<option>Softnyx</option>
+					<option>Steam</option>
+					<option>Sweepo</option>
+					<option>Tongits Wars</option>
+					<option>Touch Card</option>
+					<option>Triplejack</option>
+					<option>uCoins</option>
+					<option>VIU</option>
+					<option>War of Rings</option>
+					<option>WarpPortal</option>
+					<option>Wtfast</option>
+				</select>	&nbsp;
+				<i class="fa fa-refresh" ng-click="reload()"></i>
+			</div>
+			<div class="ps-expimp-cont dropdown" ng-hide="hideExportImport">
+				<button class="btn " ng-click="downloadCsvPrices()">Export</button>
+				<button class="btn dropdown-toggle" data-toggle="dropdown">Import</button>
+				<div class="dropdown-menu dropdown-menu-right ps-upload-form">	
+					<!-- <form action = '/admin/upload_csv' method = 'POST' 
+						enctype = 'multipart/form-data'>
+						<input type="hidden" name="operator" value="{{operator}}">
+						<input class='ps-choose-file' type = 'file' name = 'file' />
+					 	<input type = 'submit'/>
+				 	</form> -->
+				</div>
+			</div>
+		</div>
+		<div class="tp-service-charge-cont" ng-hide="hideServiceChargeMenu">
+			<label><b>Set Service Charge : </b>
+				<input class="service_charge" type="number" name="service_charge" placeholder="{{service_charge}}">
+			</label>
+			<button ng-click="set_service_charge()">OK</button>
+		</div>
+		<div class="ps-topup-table-cont">
+			<table class="table table-striped tp-topup-table">
+				<thead>
+					<tr class="tp-macs-header">
+						<th><b>Product Code</b></th>
+						<th><b>Provider</b></th>
+						<th style="text-align: center;"><b>{{ userType == 'admin' ? 'Provider Price' : 'Wizspot Price' }}</b></th>
+						<th style="text-align: center;"><b>{{ userType == 'admin' ? 'Wizspot Price' : 'Operator Price' }}</b></th>
+						<th style="text-align: center;" ng-hide="hideEnableDisable"><b>Enable/Disable Promo</b></th>
+						<th style="text-align: center;"><b>Set</b></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="p in products">
+						<td>{{p.pcode}}</td>
+						<td>{{p.provider}}</td>
+						<td style="text-align: center;">{{p.product_cost | number : 2}}</td>
+						<td style="text-align: center;">
+							<input type="text" class="tp-price-input_{{$index}}" name="price" placeholder="P{{p.price}}">
+						</td>
+						<td class="tp-topup-button" ng-hide="hideEnableDisable">
+							<button class="btn tp-promo-status-btn_{{$index}}" type="button" ng-click="promo_status($index, p.pcode)">{{p.status}}</button>
+						</td>
+						<td class="tp-topup-button">
+							<button class="btn" type="button" ng-click="set_price($index, p.pcode)">Set Price</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="footer"></div>
+</div>

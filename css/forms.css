@@ -1,0 +1,113 @@
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+body{
+	background-color: #CDCDCD
+}
+.form-cont{
+	height: 480px;
+	width: 1000px;
+	background-color: #2A2828;
+	color: white;
+	margin: 20px auto auto auto;
+	border-radius: 7px;
+	overflow: hidden;
+}
+.form-section{
+	width: 35%;
+}
+.carousel-section{
+	width: 60%;
+	margin: auto;	
+}
+.image-cont{
+	height: 110px;
+	width: 320px;
+	margin: 10px auto auto auto;
+}
+.image-cont img{
+	height: 100%;
+	width: 100%;
+}
+.carou{
+	margin: auto;
+	height: 350px;
+	width: 550px;
+	border: 1px solid gray;
+}
+.carou img{
+	height: 350px !important;
+	width: 100%;
+}
+
+.reg-form-cont{
+	height: auto;
+	width: 25%;
+	background-color: #2A2828;
+	color: white;
+	margin: 20px auto 20px auto;
+	border-radius: 7px;
+	overflow: hidden;
+}
+.form-cont-header{
+	font-family: Helvetica, sans-serif;
+	font-size: 18pt;
+	margin: 10px 0 0 20px;
+}
+.form-input-cont{
+	height: auto;
+	width: 270px;
+	margin: 10px auto auto auto;
+}
+.form-button-cont{
+	width: 270px;
+	margin: 20px auto auto auto;
+}
+.form-button-cont button{
+	height: 40px;
+	width: 100%;
+	border-radius: 5px
+}
+.form-input-cont input{
+	height: 40px;
+	width: 100%;
+	border-radius: 5px
+}
+.error-msg{
+	font-size: 10pt;
+	text-align: center;
+	margin: 10px auto auto auto;
+	color: red
+}
+
+/*RESPONSIVE*/
+@media screen and (min-width: 1024px ) and (max-width:1300px){
+	.reg-form-cont{
+		width: 35%;
+	}
+}
+@media screen and (min-width: 768px ) and (max-width:1023px){
+	.reg-form-cont{
+		width: 50%;
+	}
+}
+@media screen and (min-width: 500px ) and (max-width:767px){
+	.reg-form-cont{
+		width: 60%;
+	}
+}
+@media screen and (min-width: 320px ) and (max-width: 499px){
+	.reg-form-cont{
+		width: 90%;
+	}
+}
+@media screen and (min-width: 240px ) and (max-width: 320px){
+	.reg-form-cont{
+		width: 90%;
+	}
+	.form-input-cont{
+		width: 220px;
+	}
+	.form-input-cont input{
+		height: 35px;
+	}
+
+}

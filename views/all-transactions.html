@@ -1,0 +1,129 @@
+<div class="main">
+	<div class="tr-trans-cont">
+		<div class="tr-transs-label">
+			<font>Transactions Table &nbsp; <i class="fa fa-refresh" style=" color: #44546A; cursor: pointer;" ng-click="reload()"></i></font>
+			<div class="tr-search-box">
+				<select class="tr-select-mac">
+					<option selected disabled placeholder>Select Mac</option>
+					<option ng-repeat="mac in macs">{{mac.mac}}</option>
+				</select>	&nbsp;
+			</div>
+		</div>
+		<div class="tr-trans-tab">
+			<ul class="nav nav-pills tr-nav-pills" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active tr-show-daily" href="#" ng-click="render_transactions('daily')" data-toggle="pill" role="tab" aria-selected="true">Daily</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link tr-show-monthly" href="#" ng-click="render_transactions('weekly')" data-toggle="pill" role="tab" aria-selected="false">Weekly</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link tr-show-monthly" href="#" ng-click="render_transactions('monthly')" data-toggle="pill" role="tab" aria-selected="false">Monthly</a>
+				</li>
+			</ul>
+		</div>
+		<div class="tr-trans-table" ng-init="render_transactions('daily')">
+			<table class="table table-striped tr-table">
+				<tr>
+					<td class="tr-td-label" >{{occ}} :</td>
+					<td class="tr-td-label" ng-repeat="date in dates">{{date.date}}</td>
+				</tr>
+				<tr class="tr-tr-all">
+					<td class="tr-td-label">All :</td>
+					<td class="tr-td-content" ng-repeat="a in all">{{a.transactions}}</td>
+				</tr>
+				<tr class="tr-tr-success">
+					<td class="tr-td-label">Success :</td>
+					<td class="tr-td-content" ng-repeat="s in success">{{s.transactions}}</td>
+				</tr>
+				<tr class="tr-tr-failed">
+					<td class="tr-td-label">Failed :</td>
+					<td class="tr-td-content" ng-repeat="f in failed">{{f.transactions}}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="tr-total-cont">
+			<div class="tr-total-label">
+				<font>Totals</font>
+			</div>
+			<div class="tr-total-table-cont">
+				<table class="table tr-total-table">
+					<tr>
+						<th>Total Success Transactions :</th>
+						<th>{{_success}}</th>
+					</tr>
+					<tr>
+						<th>Total Failed Transactions :</th>
+						<th>{{_failed}}</th>
+					</tr>
+					<tr>
+						<th>Total Transactions :</th>
+						<th>{{_all}}</th>
+					</tr>
+				</table>	
+			</div>
+		</div>	
+	</div>
+
+	<div class="tr-logs-cont">
+		<div class="tr-logs-label">
+			<font>Transaction Logs</font>
+		</div>
+		<div class="tr-logs-table-cont">
+			<table class="table table-striped tr-logs-table">
+				<thead>
+					<tr class="tr-logs-header">
+						<th>Datetime</th>
+						<th>Mac</th>
+						<th ng-hide="hideAdminBalance">Admin Balance</th>
+						<th>Mac Balance</th>
+						<th>Promo Code</th>
+						<th ng-hide="hideAdmProdCost">Adm Product Cost</th>
+						<th ng-hide="hideAdmPubPrice">Adm Publish Price</th>
+						<th ng-hide="hideAdmProCostEarning">Adm ProCostEarning</th>
+						<th ng-hide="hideAdmRev">Adm Revenue</th>
+						<th>{{ userType == 'admin' ? 'Opr Product Cost' : 'Product Cost' }}</th>
+						<th>{{ userType == 'admin' ? 'Opr Publish Price' : 'Publish Price' }}</th>
+						<th ng-hide="">{{ userType == 'admin' ? 'Opr Service Charge' : 'Service Charge'}}</th>
+						<th>{{ userType == 'admin' ? 'Opr ProCostEarning' : 'ProCostEarning' }}</th>
+						<th>{{ userType == 'admin' ? 'Opr Revenue' : 'Revenue' }}</th>
+						<th>Status</th>
+						<th>Provider</th>
+						<th>Site</th>
+						<th ng-hide="hideOwner">Owner</th>
+						<th>userMac</th>
+						<th>Mobile Number</th>
+						<th>Transaction ID</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="log in logs">
+						<td class="tr-dateCreated">{{log.dateCreated}}</td>
+						<td class="tr-find"><a href="/{{userType}}/transactions/macs?mac={{log.mac}}&opr=&mob=">{{log.mac}}</a></td>
+						<td ng-hide="hideAdminBalance">P{{ log.admin_bal | number : 2 }}</td>
+						<td>P{{ log.mac_bal | number : 2 }}</td>
+						<td>{{log.productCode}}</td>
+						<td ng-hide="hideAdmProdCost">P{{ log.loadcentral_price | number : 2 }}</td>
+						<td ng-hide="hideAdmPubPrice">P{{ log.admin_price | number : 2 }}</td>
+						<td ng-hide="hideAdmProCostEarning">P{{ log.response_code != '900' ? log.base_price - log.loadcentral_price : '0' | number : 2 }}</td>
+						<td ng-hide="hideAdmRev">P{{ log.admin_revenue | number : 2 }}</td>
+						<td>P{{ log.admin_price | number : 2 }}</td>
+						<td>P{{ log.operator_price | number : 2 }}</td>
+						<td ng-hide="">P{{ log.service_charge | number : 2 }}</td>
+						<td>P{{ log.response_code != '900' ? log.base_price - log.admin_price : '0' | number : 2 }}</td>
+						<td>P{{ log.opr_revenue | number : 2 }}</td>
+						<td>{{ log.status }}</td>
+						<td>{{ log.provider }}</td>
+						<td>{{ log.site == '' ? '-----' : log.site }}</td>
+						<td ng-hide="hideOwner" class="tr-find"><a href="/{{userType}}/transactions/macs?mac=&opr={{log.operator}}&mob=">{{ log.operator }}</a></td>
+						<td>{{ log.userMac }}</td>
+						<td class="tr-find"><a href="/{{userType}}/transactions/macs?mac=&opr=&mob={{log.mobileNum}}">{{ log.mobileNum }}</a></td>
+						<td>{{ log.tid == '' ? 'No TID, Failed' : log.tid }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="footer"></div>
+</div>

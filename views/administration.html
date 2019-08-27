@@ -1,0 +1,99 @@
+<div class="main">
+	<div class="ad-macs-cont">
+		<div class="ad-macs-label">
+			<font>Assign Macs to Operator</font>
+		</div>
+		<div class="ad-macs-table-cont">
+			<table class="table table-striped ad-macs-table">
+				<thead>
+					<tr class="ad-macs-header">
+						<th><b>Mac</b></th>
+						<th><b>Operator</b></th>
+						<th><b>Site</b></th>
+						<th style="text-align: center;"><b>Assignment</b></th>
+						<th style="text-align: center;"><b>Status</b></th>
+					</tr>	
+				</thead>
+				<tbody>
+					<tr ng-repeat="mac in macs">
+						<!-- <td>{{mac.dateCreated}}</td> -->
+						<td>{{mac.mac}}</td>
+						<td>
+							<select class="ad-macs-option_{{$index}}" disabled>
+								<option selected disabled>{{mac.operator == '' ? '-----' : mac.operator}}</option>
+								<option>-----</option>
+								<option ng-repeat="operator in operators">{{operator.operator}}</option>
+							</select>
+						</td>
+						<td>
+							<input class="ad-macs-input_{{$index}}" type="text" disabled="true" name="macs" value="{{mac.site == '' ? '-----' : mac.site}}">
+						</td>
+						<td class="ad-macs-button">
+							<button class="btn" type="button" ng-click="edit1($index)">Edit</button>
+							<button class="btn" type="button" ng-click="apply1($index, mac.mac)">Apply</button>
+						</td>
+						<td class="ad-macs-button">
+							<button class="btn ad-status-btn-mac_{{$index}}" type="button" ng-click="mac_status_button($index, mac.mac)">{{mac.status}}</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="ad-opr-cont">
+		<div class="ad-opr-label">
+			<font>List of Operators</font>
+		</div>
+		<div class="ad-opr-table-cont">
+			<table class="table table-striped ad-opr-table">
+				<thead>
+					<tr class="ad-operator-header">
+						<!-- <th><b>Date Created</b></th> -->
+						<th><b>Operator</b></th>
+						<th style="text-align: center;"><b>Status</b></th>
+						<th style="text-align: center;"><b>Reset Password</b></th>
+					</tr>	
+				</thead>
+				<tbody>
+					<tr ng-repeat="operator in operators">
+						<!-- <td>{{operator.dateCreated}}</td> -->
+						<td>{{operator.operator}}</td>
+						<td class="ad-opr-button">
+							<button class="btn ad-status-btn-opr_{{$index}}" type="button" ng-click="operator_status_button($index, operator.operator)">{{operator.status}}</button>
+						</td>
+						<td class="ad-opr-button">
+							<button class="btn" type="button" ng-click="reset_password(operator.operator)">Reset</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<!-- <div class="ad-opr-cont">
+		<div class="ad-opr-label">
+			<font>Assign Operators to Partner</font>
+		</div>
+		<div class="ad-opr-table-cont">
+			<table class="table table-striped ad-opr-table">
+				<tr ng-repeat="operator in operators">
+					<td>{{operator.operator}}</td>
+					<td>
+						<select class="ad-opr-option_{{$index}}" disabled>
+							<option selected disabled>{{operator.partner == '' ? '-----' : operator.partner}}</option>
+							<option>-----</option>
+							<option ng-repeat="partner in partners">{{partner.partner}}</option>
+						</select>
+					</td>
+					<td class="ad-opr-button">
+						<button class="btn" type="button" ng-click="edit2($index)">Edit</button>
+						<button class="btn" type="button" ng-click="apply2($index, operator.operator)">Apply</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div> -->
+
+	<div class="footer"></div>
+</div>
