@@ -795,29 +795,29 @@ reports.factory('charts', [function(){
 			data : {
 				labels : date,
 				datasets : [{
-					label : 'Success',
+					label : 'Success Transactions',
 					data : success,
 					backgroundColor: 'rgba(0, 0, 0, 0)',
-					borderColor: '#28A745',
+					borderColor: '#70AD47',
 					borderWidth: "2",
 					lineTension: 0.3,
 	        		fill: true,
-	        		pointBackgroundColor: '#28A745',
+	        		pointBackgroundColor: '#70AD47',
 	        		pointRadius: 2
 				},
 				{
-					label : 'Failed',
+					label : 'Failed Transactions',
 					data : failed,
 					backgroundColor: 'rgba(0, 0, 0, 0)',
-					borderColor: '#DC3545',
+					borderColor: '#7C7C7C',
 					borderWidth: "2",
 					lineTension: 0.3,
 	        		fill: true,
-	        		pointBackgroundColor: '#DC3545',
+	        		pointBackgroundColor: '#7C7C7C',
 	        		pointRadius: 2
 				},
 				{
-					label : 'All',
+					label : 'All Transactions',
 					data : all,
 					backgroundColor: 'rgba(0, 0, 0, 0)',
 					borderColor: '#44546A',
@@ -869,21 +869,21 @@ reports.factory('charts', [function(){
 			data: {
 				labels : date,
 				datasets : [{
-					label : 'Success',
+					label : 'Success Transactions',
 					data : success,
-					backgroundColor: '#19ED6E',
-					borderColor: '#28A745',
+					backgroundColor: '#A9D18E',
+					borderColor: '#70AD47',
 					borderWidth: "2"
 				},
 				{
-					label : 'Failed',
+					label : 'Failed Transactions',
 					data : failed,
-					backgroundColor: '#FC7D7D',
-					borderColor: '#DC3545',
+					backgroundColor: '#AFABAB',
+					borderColor: '#7C7C7C',
 					borderWidth: "2"
 				},
 				{
-					label : 'All',
+					label : 'All Transactions',
 					data : all,
 					backgroundColor: '#8497B0',
 					borderColor: '#44546A',

@@ -1,62 +1,6 @@
 reports.factory('events', [function(){
-	function db_navigate_main_info(){
-		$('body').on('click', '.db-main-daily, .db-main-weekly, .db-main-monthly', function(){
-			$('.db-info-box-1, .db-info-box-2, .db-info-box-3, .db-info-box-4, .db-info-box-5, .db-info-box-6').hide().fadeIn(800);
-		});
-	}
-	function db_navigate_bal_chart(){
-		$('body').on('click', '.db-bal-line', function(){
-			$('#canvas1').show();
-			$('#canvas2').hide();
-		});
-		$('body').on('click', '.db-bal-bar', function(){
-			$('#canvas2').attr("style", "display:block !important; width:100%; height:100%;");
-			$('#canvas1').hide();
-		});
-		$('body').on('click', '.db-bal-daily, .db-bal-monthly', function(){
-			$('.db-chart-canvas').hide().fadeIn(800);
-		});
-	}
-	function db_navigate_earn_chart(){
-		$('body').on('click', '.db-earn-line', function(){
-			$('#canvas3').show();
-			$('#canvas4').hide();
-		});
-		$('body').on('click', '.db-earn-bar', function(){
-			$('#canvas4').attr("style", "display:block !important; width:100%; height:100%;");
-			$('#canvas3').hide();
-		});
-		$('body').on('click', '.db-earn-daily, .db-earn-monthly', function(){
-			$('.db-chart-canvas2').hide().fadeIn(800);
-		});
-	}
 	function db_navigate_trans_chart(){
-		$('body').on('click', '.db-trans-line', function(){
-			$('#canvas5').attr("style", "display:block !important; width:100%; height:100%;");
-			$('#canvas6').hide();
-		});
-		$('body').on('click', '.db-trans-bar', function(){
-			$('#canvas6').show();
-			$('#canvas5').hide();
-		});
-		$('body').on('click', '.db-trans-daily, .db-trans-monthly', function(){
-			$('.db-chart-canvas3').hide().fadeIn(800);
-		});
-	}
-	function bl_tab_navigator(){
-		$('body').on('click', '.bl-show-daily, .bl-show-monthly', function(){
-			$('.bl-table').hide().fadeIn();
-		});
-	}
-	function ea_tab_navigator(){
-		$('body').on('click', '.ea-show-daily, .ea-show-monthly', function(){
-			$('.ea-table').hide().fadeIn();
-		});
-	}
-	function tr_tab_navigator(){
-		$('body').on('click', '.tr-show-daily, .tr-show-monthly', function(){
-			$('.tr-table').hide().fadeIn();
-		});
+		rp_navigateChart('#rp-canvas7', '#rp-canvas8');
 	}
 	function tp_tab_navigator(){
 		$('body').on('click', '.tp-show-daily, .tp-show-weekly, .tp-show-monthly', function(){
@@ -67,7 +11,7 @@ reports.factory('events', [function(){
 
 	function rp_navigateChart(canvas1, canvas2){
 		$('body').on('click', '.rp-details-line', function(){
-			$(canvas1).show();
+			$(canvas1).attr("style", "display:block !important; width:100%; height:100%;");
 			$(canvas2).hide();
 		});
 		$('body').on('click', '.rp-details-bar', function(){
@@ -133,13 +77,7 @@ reports.factory('events', [function(){
 	}
 
 	return{
-		db_navigate_main_info : db_navigate_main_info,
-		db_navigate_bal_chart : db_navigate_bal_chart,
-		db_navigate_earn_chart : db_navigate_earn_chart,
 		db_navigate_trans_chart : db_navigate_trans_chart,
-		bl_tab_navigator : bl_tab_navigator,
-		ea_tab_navigator : ea_tab_navigator,
-		tr_tab_navigator : tr_tab_navigator,
 		tp_tab_navigator : tp_tab_navigator,
 
 		currentBalanceClicked : currentBalanceClicked,

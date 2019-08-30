@@ -13,7 +13,8 @@
 	<div class="row form-cont">
 		<div class="form-section">
 			<div class="image-cont">
-				<img src="/static/img/wizspot_logo2.png">
+				<img class="wizspot_logo" style="display: none;" src="/static/img/wizspot_logo2.png">
+	  			<img class="wizher_logo" style="display: none;" src="/static/img/wizher_logo.png">
 			</div>
 			<div class="form-cont-header">
 				<font>Sign-in</font><br>	
@@ -57,3 +58,19 @@
 	<script type="text/javascript" src="/static/js/lib/slick.js"></script>
 </body>
 </html>
+
+
+<script type="text/javascript">
+	urlPath = window.location.pathname;
+	userType = urlPath.split('/');
+	userType = userType[1];
+	if(userType == 'eload'){
+		$('.image-cont').attr('style', 'height: 70px; width: 68%;');
+		$('.wizher_logo').show();
+		$('.wizspot_logo').hide();
+	}
+	else{
+		$('.wizspot_logo').show();
+		$('.wizher_logo').hide();
+	}
+</script>

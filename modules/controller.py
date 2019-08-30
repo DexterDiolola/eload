@@ -39,165 +39,11 @@ class Controller:
 		response.append({'balance' : balance})
 		return response
 
-	def count_mac_with_balance(self, userType, user):
-		return proc.COUNT_MAC_WITH_BALANCE(userType, user)
-
-	def get_remaining_load(self, userType, user):
-		return proc.GET_REMAINING_LOAD(userType, user)
-
-	def get_balance_each(self, userType, user):
-		response = []
-		if userType == None or user == None:
-			return 0
-		balance = proc.GET_BALANCE_EACH(userType, user)
-		if balance == 0:
-			return 0
-		for x in range(len(balance)):
-			obj = {
-				'mac' :  balance[x][0],
-				'site' : balance[x][1],
-				'operator' : balance[x][2],
-				'balance' : balance[x][3]
-			}
-			response.append(obj)
-		return response
-
-	def get_sales(self, userType, user, occ):
-		response = []
-		if userType == None or user == None:
-			return 0
-		sales = proc.GET_SALES(userType, user, occ)
-		response.append({'sales' : sales})
-		return response
-
-	def get_earnings(self, userType, user, occ):
-		response = []
-		if userType == None or user == None:
-			return 0
-		earnings = proc.GET_EARNINGS(userType, user, occ)
-		response.append({'earnings' : earnings})
-		return response
-
-	def get_transactions(self, userType, user, status, occ):
-		response = []
-		if userType == None or user == None or status == None:
-			return 0
-		transactions = proc.GET_TRANSACTIONS(userType, user, status, occ)
-		response.append({'transactions' : transactions})
-		return response
-
-	def periodic_dates(self, period):
-		response = []
-		if period == None:
-			return 0
-		dates = proc.PERIODIC_DATES(period)
-		for x in range(len(dates)):
-			if period == 'daily':
-				date = period_initiator(dates[x], period)
-				obj = {
-					'date' : date
-				}
-			elif period == 'weekly':
-				date = period_initiator(dates[x], period)
-				obj = {
-					'date' : date
-				}
-			elif period == 'monthly':
-				obj = {
-					'date' : dates[x]
-				}
-			else:
-				return 0
-			response.append(obj)
-		return response
-
-	def get_periodic_balance(self, userType, user, period):
-		response = []
-		if userType == None or user == None or period == None:
-			return 0
-		balance = proc.GET_PERIODIC_BALANCE(userType, user, period)
-		if balance == 0:
-			return 0
-		for x in range(len(balance)):
-			obj = {
-				'dateCreated' : balance[x][0],
-				'balance' : balance[x][1]
-			}
-			response.append(obj)
-		return response
-
-	def search_periodic_balance(self, userType, user, period, mac):
-		response = []
-		if userType == None or user == None or period == None or mac == None:
-			return 0
-		balance = proc.SEARCH_PERIODIC_BALANCE(userType, user, period, mac)
-		if balance == 0:
-			return 0
-		for x in range(len(balance)):
-			obj = {
-				'dateCreated' : balance[x][0],
-				'balance' : balance[x][1]
-			}
-			response.append(obj)
-		return response
-
-	def get_periodic_deduction(self, userType, user, period):
-		response = []
-		if userType == None or user == None or period == None:
-			return 0
-		deduction = proc.GET_PERIODIC_DEDUCTION(userType, user, period)
-		if deduction == 0:
-			return 0
-		for x in range(len(deduction)):
-			obj = {
-				'dateCreated' : deduction[x][0],
-				'deduction' : deduction[x][1],
-				'topup' : deduction[x][2]
-			}
-			response.append(obj)
-		return response
-
-	def search_periodic_deduction(self, userType, user, period, mac):
-		response = []
-		if userType == None or user == None or period == None or mac == None:
-			return 0
-		deduction = proc.SEARCH_PERIODIC_DEDUCTION(userType, user, period, mac)
-		if deduction == 0:
-			return 0
-		for x in range(len(deduction)):
-			obj = {
-				'dateCreated' : deduction[x][0],
-				'deduction' : deduction[x][1],
-				'topup' : deduction[x][2]
-			}
-			response.append(obj)
-		return response
-
 	def get_periodic_transactions_all(self, userType, user, period):
 		response = []
 		if userType == None or user == None or period == None:
 			return 0
 		transactions = proc.GET_PERIODIC_TRANSACTIONS_ALL(userType, user, period)
-		if transactions == 0:
-			return 0
-		for x in range(len(transactions)):
-			obj = {
-				'dateCreated' : transactions[x][0],
-				'transactions' : transactions[x][1]
-			}
-			response.append(obj)
-		return response
-
-	def search_periodic_transactions_all(self, userType, user, period, mac, opr, mob):
-		response = []
-		if userType == None or user == None or period == None:
-			return 0
-		search = {
-			'mac' : mac,
-			'operator' : opr,
-			'mobileNum' : mob
-		}
-		transactions = proc.SEARCH_PERIODIC_TRANSACTIONS_ALL(userType, user, period, search)
 		if transactions == 0:
 			return 0
 		for x in range(len(transactions)):
@@ -223,26 +69,6 @@ class Controller:
 			response.append(obj)
 		return response
 
-	def search_periodic_transactions_success(self, userType, user, period, mac, opr, mob):
-		response = []
-		if userType == None or user == None or period == None:
-			return 0
-		search = {
-			'mac' : mac,
-			'operator' : opr,
-			'mobileNum' : mob
-		}
-		transactions = proc.SEARCH_PERIODIC_TRANSACTIONS_SUCCESS(userType, user, period, search)
-		if transactions == 0:
-			return 0
-		for x in range(len(transactions)):
-			obj = {
-				'dateCreated' : transactions[x][0],
-				'transactions' : transactions[x][1]
-			}
-			response.append(obj)
-		return response
-
 	def get_periodic_transactions_failed(self, userType, user, period):
 		response = []
 		if userType == None or user == None or period == None:
@@ -254,97 +80,6 @@ class Controller:
 			obj = {
 				'dateCreated' : transactions[x][0],
 				'transactions' : transactions[x][1]
-			}
-			response.append(obj)
-		return response
-
-	def search_periodic_transactions_failed(self, userType, user, period, mac, opr, mob):
-		response = []
-		if userType == None or user == None or period == None:
-			return 0
-		search = {
-			'mac' : mac,
-			'operator' : opr,
-			'mobileNum' : mob
-		}
-		transactions = proc.SEARCH_PERIODIC_TRANSACTIONS_FAILED(userType, user, period, search)
-		if transactions == 0:
-			return 0
-		for x in range(len(transactions)):
-			obj = {
-				'dateCreated' : transactions[x][0],
-				'transactions' : transactions[x][1]
-			}
-			response.append(obj)
-		return response
-
-	def get_transaction_logs(self, userType, user, occ):
-		response = []
-		if userType == None or user == None or occ == None:
-			return 0
-		logs = proc.GET_TRANSACTION_LOGS(userType, user, occ)
-		if logs == 0:
-			return 0
-		for x in range(len(logs)):
-			obj = {
-				'dateCreated' : logs[x][0],
-				'mac' : logs[x][1],
-				'site' : logs[x][2],
-				'operator' : logs[x][3],
-				'userMac' : logs[x][4],
-				'mobileNum' : logs[x][5],
-				'productCode' : logs[x][6],
-				'loadcentral_price' : logs[x][7],
-				'admin_price' : logs[x][8],
-				'operator_price' : logs[x][9],
-				'service_charge' : logs[x][10],
-				'admin_revenue' : logs[x][11],
-				'opr_revenue' : logs[x][12],
-				'admin_bal' : logs[x][13],
-				'mac_bal' : logs[x][14],
-				'provider' : logs[x][15],
-				'status' : logs[x][16],
-				'tid' : logs[x][17],
-				'base_price' : logs[x][18],
-				'response_code' : logs[x][19]
-			}
-			response.append(obj)
-		return response
-
-	def search_transaction_logs(self, userType, user, occ, mac, opr, mob):
-		response = []
-		if userType == None or user == None:
-			return 0
-		search = {
-			'mac' : mac,
-			'operator' : opr,
-			'mobileNum' : mob
-		}
-		logs = proc.SEARCH_TRANSACTION_LOGS(userType, user, occ, search)
-		if logs == 0:
-			return 0
-		for x in range(len(logs)):
-			obj = {
-				'dateCreated' : logs[x][0],
-				'mac' : logs[x][1],
-				'site' : logs[x][2],
-				'operator' : logs[x][3],
-				'userMac' : logs[x][4],
-				'mobileNum' : logs[x][5],
-				'productCode' : logs[x][6],
-				'loadcentral_price' : logs[x][7],
-				'admin_price' : logs[x][8],
-				'operator_price' : logs[x][9],
-				'service_charge' : logs[x][10],
-				'admin_revenue' : logs[x][11],
-				'opr_revenue' : logs[x][12],
-				'admin_bal' : logs[x][13],
-				'mac_bal' : logs[x][14],
-				'provider' : logs[x][15],
-				'status' : logs[x][16],
-				'tid' : logs[x][17],
-				'base_price' : logs[x][18],
-				'response_code' : logs[x][19]
 			}
 			response.append(obj)
 		return response
@@ -482,23 +217,6 @@ class Controller:
 		else:
 			return price
 
-	def get_periodic_sales(self, userType, user, period, mac):
-		response = []
-		if userType == None or user == None or period == None or mac == None:
-			return 0
-		sales = proc.GET_PERIODIC_SALES(userType, user, period, mac)
-		if sales == 0:
-			return 0
-		for x in range(len(sales)):
-			obj = {
-				'dateCreated' : sales[x][0],
-				'sale' : sales[x][1],
-				'revenue' : sales[x][2]
-			}
-			response.append(obj)
-
-		return response
-
 	def set_promo_status(self, pcode, status):
 		return proc.SET_PROMO_STATUS(pcode, status)
 
@@ -578,12 +296,3 @@ def period_initiator(param, period):
 		return month
 	else:
 		return None
-
-'''
-def init_admin_periodic_earnings(param):
-	for x in range(len(param)):
-		idx = x + 1
-		if idx == len(param):
-			idx = len(param) - 1
-		if int(param[x]['balance']) > int(param[idx]['balance']) :
-'''		

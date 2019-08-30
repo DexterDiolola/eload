@@ -10,7 +10,7 @@ from logs.log_conf import Logger
 app = Flask(__name__)
 app.secret_key = 'KEY' + ''.join(random.choice('1234567890') for i in range(10))
 
-trans = transactions.Transactions({'uid' : 'silvertree', 'pword' : 'silvertree@9945'})
+trans = transactions.Transactions({'uid' : 'api_dealer04', 'pword' : 'apitest1234'})
 auth = authenticates.Authenticates()
 controller = controller.Controller()
 files = files.Files()
@@ -74,11 +74,25 @@ def activate():
 	if decrypted == 'Error 101':	return encBase64.encryptData(encBase64.key1, 'Failed, Error 101').decode()
 	obj = encBase64.actParseDecryptedData(decrypted)
 	if obj == 'Error 102':	return encBase64.encryptData(encBase64.key1, 'Failed, Error 102').decode()
-	obj = encBase64.extractPassword(obj)
+	obj = encBase64.extractPassword(encBase64.key2, obj)
 	if obj == 'Error 103':	return encBase64.encryptData(encBase64.key1, 'Failed, Error 103').decode()
-	info = encBase64.giveTheKey(obj)
+	info = encBase64.giveTheKey(encBase64.key1, obj)
 	if info == 'Error 104':	return encBase64.encryptData(encBase64.key1, 'Failed, Error 104').decode()
 	return str(info)
+
+@app.route('/activateShare')
+def activateShare():
+	info = request.args.get('info')
+	decrypted = encBase64.decryptData(encBase64.internal_key1, info)
+	if decrypted == 'Error 101':	return encBase64.encryptData(encBase64.internal_key1, 'Failed, Error 101').decode()
+	obj = encBase64.actParseDecryptedData(decrypted)
+	if obj == 'Error 102':	return encBase64.encryptData(encBase64.internal_key1, 'Failed, Error 102').decode()
+	obj = encBase64.extractPassword(encBase64.internal_key2, obj)
+	if obj == 'Error 103':	return encBase64.encryptData(encBase64.internal_key1, 'Failed, Error 103').decode()
+	info = encBase64.giveTheKey(encBase64.internal_key1, obj)
+	if info == 'Error 104':	return encBase64.encryptData(encBase64.internal_key1, 'Failed, Error 104').decode()
+	return str(info)
+
 
 @app.route('/deactivate')
 def deactivate():
@@ -97,7 +111,15 @@ def deactivate():
 @app.route('/msgInfo3')
 def msgInfo3():
 	info = request.args.get('info')
-	obj = encBase64.validateTransReq(info)
+	obj = encBase64.validateTransReq(encBase64.key1, info)
+	if obj == 'Error 105':
+		return 'Failed, transaction failed'
+	return trans.proc_client_request(obj)
+
+@app.route('/getManualLoadShare')
+def getManualLoadShare():
+	info = request.args.get('info')
+	obj = encBase64.validateTransReq(encBase64.internal_key1, info)
 	if obj == 'Error 105':
 		return 'Failed, transaction failed'
 	return trans.proc_client_request(obj)
@@ -121,8 +143,12 @@ def encrpyt3():
 	key = request.args.get('key')
 	if key == 'key1':
 		encrypted = encBase64.encryptData(encBase64.key1, string)
-	else:
+	elif key == 'key2':
 		encrypted = encBase64.encryptData(encBase64.key2, string)
+	elif key == 'internal_key1':
+		encrypted = encBase64.encryptData(encBase64.internal_key1, string)
+	else:
+		encrypted = encBase64.encryptData(encBase64.internal_key2, string)
 	
 	return str(encrypted.decode())
 
@@ -141,7 +167,13 @@ def decrypt2():
 @app.route('/decrypt3')
 def decrypt3():
 	string = request.args.get('string')
-	decrypted = encBase64.decryptData(encBase64.key1, string)
+	key = request.args.get('key')
+
+	if key == 'key1':
+		decrypted = encBase64.decryptData(encBase64.key1, string)
+	else:
+		decrypted = encBase64.decryptData(encBase64.internal_key1, string)
+
 	return decrypted
 
 @app.route('/check-balance')
@@ -313,176 +345,12 @@ def downloadTransactionLogs():
 
 
 
-
-
-
-
-
-@app.route('/api/get-balance')
-def get_balance():
-	userType = request.args.get('userType')
-	user = request.args.get('user')
-	data = controller.get_balance(userType, user)
-	response = app.response_class(
-		response = json.dumps(data),
-		status = 200,
-		mimetype = 'application/json'
-	)
-	return response
-
-@app.route('/api/count-mac-with-balance')
-def count_mac_with_balance():
-	userType = request.args.get('userType')
-	user = request.args.get('user')
-
-	return controller.count_mac_with_balance(userType, user)
-
-@app.route('/api/get-remaining-load')
-def get_remaining_load():
-	userType = request.args.get('userType')
-	user = request.args.get('user')
-
-	return controller.get_remaining_load(userType, user)
-
-@app.route('/api/get-balance-each')
-def get_balance_each():
-	userType = request.args.get('userType')
-	user = request.args.get('user')
-	data = controller.get_balance_each(userType, user)
-	response = app.response_class(
-		response = json.dumps(data),
-		status = 200,
-		mimetype = 'application/json'
-	)
-	return response
-
-@app.route('/api/get-sales')
-def get_sales():
-	userType = request.args.get('userType')
-	user = request.args.get('user')
-	occ = request.args.get('occ')
-	data = controller.get_sales(userType, user, occ)
-	response = app.response_class(
-		response = json.dumps(data),
-		status = 200,
-		mimetype = 'application/json'
-	)
-	return response
-
-@app.route('/api/get-earnings')
-def get_earnings():
-	userType = request.args.get('userType')
-	user = request.args.get('user')
-	occ = request.args.get('occ')
-	data = controller.get_earnings(userType, user, occ)
-	response = app.response_class(
-		response = json.dumps(data),
-		status = 200,
-		mimetype = 'application/json'
-	)
-	return response
-
-@app.route('/api/get-transactions')
-def get_transactions():
-	userType = request.args.get('userType')
-	user = request.args.get('user')
-	status = request.args.get('status')
-	occ = request.args.get('occ')
-	data = controller.get_transactions(userType, user, status, occ)
-	response = app.response_class(
-		response = json.dumps(data),
-		status = 200,
-		mimetype = 'application/json'
-	)
-	return response
-
-@app.route('/api/get-periodic-dates')
-def periodic_dates():
-	period = request.args.get('period')
-	data = controller.periodic_dates(period)
-	response = app.response_class(
-		response = json.dumps(data),
-		status = 200,
-		mimetype = 'application/json'
-	)
-	return response
-
-@app.route('/api/get-periodic-balance')
-def get_periodic_balance():
-	userType = request.args.get('userType')
-	user = request.args.get('user')
-	period = request.args.get('period')
-	data = controller.get_periodic_balance(userType, user, period)
-	response = app.response_class(
-		response = json.dumps(data),
-		status = 200,
-		mimetype = 'application/json'
-	)
-	return response
-
-@app.route('/api/search-periodic-balance')
-def search_periodic_balance():
-	userType = request.args.get('userType')
-	user = request.args.get('user')
-	period = request.args.get('period')
-	mac = request.args.get('mac')
-	data = controller.search_periodic_balance(userType, user, period, mac)
-	response = app.response_class(
-		response = json.dumps(data),
-		status = 200,
-		mimetype = 'application/json'
-	)
-	return response
-
-@app.route('/api/get-periodic-deduction')
-def get_periodic_deduction():
-	userType = request.args.get('userType')
-	user = request.args.get('user')
-	period = request.args.get('period')
-	data = controller.get_periodic_deduction(userType, user, period)
-	response = app.response_class(
-		response = json.dumps(data),
-		status = 200,
-		mimetype = 'application/json'
-	)
-	return response
-
-@app.route('/api/search-periodic-deduction')
-def search_periodic_deduction():
-	userType = request.args.get('userType')
-	user = request.args.get('user')
-	period = request.args.get('period')
-	mac = request.args.get('mac')
-	data = controller.search_periodic_deduction(userType, user, period, mac)
-	response = app.response_class(
-		response = json.dumps(data),
-		status = 200,
-		mimetype = 'application/json'
-	)
-	return response
-
 @app.route('/api/get-periodic-transactions-all')
 def get_periodic_transactions_all():
 	userType = request.args.get('userType')
 	user = request.args.get('user')
 	period = request.args.get('period')
 	data = controller.get_periodic_transactions_all(userType, user, period)
-	response = app.response_class(
-		response = json.dumps(data),
-		status = 200,
-		mimetype = 'application/json'
-	)
-	return response
-
-@app.route('/api/search-periodic-transactions-all')
-def search_periodic_transactions_all():
-	userType = request.args.get('userType')
-	user = request.args.get('user')
-	period = request.args.get('period')
-	mac = request.args.get('mac')
-	opr = request.args.get('opr')
-	mob = request.args.get('mob')
-	data = controller.search_periodic_transactions_all(userType, user, period, mac, opr, mob)
 	response = app.response_class(
 		response = json.dumps(data),
 		status = 200,
@@ -503,73 +371,12 @@ def get_periodic_transactions_success():
 	)
 	return response
 
-@app.route('/api/search-periodic-transactions-success')
-def search_periodic_transactions_success():
-	userType = request.args.get('userType')
-	user = request.args.get('user')
-	period = request.args.get('period')
-	mac = request.args.get('mac')
-	opr = request.args.get('opr')
-	mob = request.args.get('mob')
-	data = controller.search_periodic_transactions_success(userType, user, period, mac, opr, mob)
-	response = app.response_class(
-		response = json.dumps(data),
-		status = 200,
-		mimetype = 'application/json'
-	)
-	return response
-
 @app.route('/api/get-periodic-transactions-failed')
 def get_periodic_transactions_failed():
 	userType = request.args.get('userType')
 	user = request.args.get('user')
 	period = request.args.get('period')
 	data = controller.get_periodic_transactions_failed(userType, user, period)
-	response = app.response_class(
-		response = json.dumps(data),
-		status = 200,
-		mimetype = 'application/json'
-	)
-	return response
-
-@app.route('/api/search-periodic-transactions-failed')
-def search_periodic_transactions_failed():
-	userType = request.args.get('userType')
-	user = request.args.get('user')
-	period = request.args.get('period')
-	mac = request.args.get('mac')
-	opr = request.args.get('opr')
-	mob = request.args.get('mob')
-	data = controller.search_periodic_transactions_failed(userType, user, period, mac, opr, mob)
-	response = app.response_class(
-		response = json.dumps(data),
-		status = 200,
-		mimetype = 'application/json'
-	)
-	return response
-
-@app.route('/api/get-transaction-logs')
-def get_transaction_logs():
-	userType = request.args.get('userType')
-	user = request.args.get('user')
-	occ = request.args.get('occ')
-	data = controller.get_transaction_logs(userType, user, occ)
-	response = app.response_class(
-		response = json.dumps(data),
-		status = 200,
-		mimetype = 'application/json'
-	)
-	return response
-
-@app.route('/api/search-transaction-logs')
-def search_transaction_logs():
-	userType = request.args.get('userType')
-	user = request.args.get('user')
-	occ = request.args.get('occ')
-	mac = request.args.get('mac')
-	opr = request.args.get('opr')
-	mob = request.args.get('mob')
-	data = controller.search_transaction_logs(userType, user, occ, mac, opr, mob)
 	response = app.response_class(
 		response = json.dumps(data),
 		status = 200,
@@ -717,24 +524,6 @@ def set_price_operator():
 	set_price = controller.set_price_operator(pcode, price, operator)
 	return set_price
 
-@app.route('/api/get-periodic-sales')
-def get_periodic_sales():
-	userType = request.args.get('userType')
-	user = request.args.get('user')
-	period = request.args.get('period')
-	mac = request.args.get('mac')
-
-	if userType == '' or user == '' or period == '':
-		return 'Failed, Invalid parameter value'
-
-	data = controller.get_periodic_sales(userType, user, period, mac)
-	response = app.response_class(
-		response = json.dumps(data),
-		status = 200,
-		mimetype = 'application/json'
-	)
-	return response
-
 @app.route('/api/set-promo-status')
 def set_promo_status():
 	pcode = request.args.get('pcode')
@@ -819,7 +608,11 @@ def operatorMiddleware(o):
 			operator = session['operator']
 			flash(operator)
 		except:
-			return redirect(url_for('operatorLogin'))
+			cur_url = request.url_rule
+			if 'operator' in cur_url.rule:
+				return redirect('/operator/login')
+			else:
+				return redirect('/eload/login')
 		return o(*args, **kwargs)
 	return decorator
 
@@ -895,36 +688,6 @@ def adminRegister():
 def adminHome():
 	return render_template('reports-admin.html')
 
-@app.route('/admin/balance')
-@adminMiddleware
-def adminBalance():
-	return render_template('reports-admin.html')
-
-@app.route('/admin/balance/macs')
-@adminMiddleware
-def adminBalanceEach():
-	return render_template('reports-admin.html')
-
-@app.route('/admin/earnings')
-@adminMiddleware
-def adminEarnings():
-	return render_template('reports-admin.html')
-
-@app.route('/admin/earnings/macs')
-@adminMiddleware
-def adminEarningsEach():
-	return render_template('reports-admin.html')
-
-@app.route('/admin/transactions')
-@adminMiddleware
-def adminTransactions():
-	return render_template('reports-admin.html')
-
-@app.route('/admin/transactions/macs')
-@adminMiddleware
-def adminTransactionsEach():
-	return render_template('reports-admin.html')
-
 @app.route('/admin/administration')
 @adminMiddleware
 def administration():
@@ -992,8 +755,10 @@ def uploadForCarousel():
 
 
 @app.route('/operator/login', methods = ['GET', 'POST'])
+@app.route('/eload/login', methods = ['GET', 'POST'])
 def operatorLogin():
 	error = None
+	cur_url = request.url_rule
 	if request.method == 'POST':
 		uname = request.form['username']
 		pword = request.form['password']
@@ -1003,17 +768,27 @@ def operatorLogin():
 		else:
 			session['operator'] = uname
 			flash(uname)
-			return redirect(url_for('operatorHome'))
+			if 'operator' in cur_url.rule:
+				return redirect('/operator/home')
+			else:
+				return redirect('/eload/home')
 	return render_template('login-operator.html', error = error)
 
 @app.route('/operator/logout', methods = ['POST'])
+@app.route('/eload/logout', methods = ['POST'])
 def operatorLogout():
+	cur_url = request.url_rule
 	session.pop('operator', None)
-	return redirect(url_for('operatorLogin'))
+	if 'operator' in cur_url.rule:
+		return redirect('/operator/login')
+	else:
+		return redirect('/eload/login')
 
 @app.route('/operator/register', methods = ['GET', 'POST'])
+@app.route('/eload/register', methods = ['GET', 'POST'])
 def operatorRegister():
 	error = None
+	cur_url = request.url_rule
 	if request.method == 'POST':
 		if request.form['username'] == '' or request.form['password'] == '' or request.form['email'] == '':
 			error = 'Please Complete Fields'
@@ -1033,84 +808,102 @@ def operatorRegister():
 			elif addNewUser == 2:
 				error = 'The email you entered is invalid'
 			else:
-				return redirect(url_for('operatorLogin'))
+				if 'operator' in cur_url.rule:
+					return redirect('/operator/login')
+				else:
+					return redirect('/eload/login')
 	return render_template('register.html', error = error)
 
 @app.route('/operator/home')
+@app.route('/eload/home')
 @operatorMiddleware
 def operatorHome():
-	return render_template('reports-operator.html')
-
-@app.route('/operator/balance')
-@operatorMiddleware
-def operatorBalance():
-	return render_template('reports-operator.html')
-
-@app.route('/operator/balance/macs')
-@operatorMiddleware
-def operatorBalanceEach():
-	return render_template('reports-operator.html')
-
-@app.route('/operator/earnings')
-@operatorMiddleware
-def operatorEarnings():
-	return render_template('reports-operator.html')
-
-@app.route('/operator/earnings/macs')
-@operatorMiddleware
-def operatorEarningsEach():
-	return render_template('reports-operator.html')
-
-@app.route('/operator/transactions')
-@operatorMiddleware
-def operatorTransactions():
-	return render_template('reports-operator.html')
-
-@app.route('/operator/transactions/macs')
-@operatorMiddleware
-def operatorTransactionsEach():
-	return render_template('reports-operator.html')
+	cur_url = request.url_rule
+	if 'operator' in cur_url.rule:
+		return render_template('reports-operator.html')
+	else:
+		return render_template('reports_wizher_users.html')
 
 @app.route('/operator/load_wallet')
+@app.route('/eload/load_wallet')
 @operatorMiddleware
 def operatorTopup():
-	return render_template('reports-operator.html')
+	cur_url = request.url_rule
+	if 'operator' in cur_url.rule:
+		return render_template('reports-operator.html')
+	else:
+		return render_template('reports_wizher_users.html')
 
 @app.route('/operator/load_wallet/macs')
+@app.route('/eload/load_wallet/macs')
 @operatorMiddleware
 def operatorTopupEach():
-	return render_template('reports-operator.html')
+	cur_url = request.url_rule
+	if 'operator' in cur_url.rule:
+		return render_template('reports-operator.html')
+	else:
+		return render_template('reports_wizher_users.html')
 
 @app.route('/operator/products_services')
+@app.route('/eload/products_services')
 @operatorMiddleware
 def operatorProdServ():
-	return render_template('reports-operator.html')
+	cur_url = request.url_rule
+	if 'operator' in cur_url.rule:
+		return render_template('reports-operator.html')
+	else:
+		return render_template('reports_wizher_users.html')
 
 @app.route('/operator/news_ads')
+@app.route('/eload/news_ads')
 @operatorMiddleware
 def operatorNewsAds():
-	return render_template('reports-operator.html')
+	cur_url = request.url_rule
+	if 'operator' in cur_url.rule:
+		return render_template('reports-operator.html')
+	else:
+		return render_template('reports_wizher_users.html')
 
 @app.route('/operator/settings')
+@app.route('/eload/settings')
 @operatorMiddleware
 def operatorSettings():
-	return render_template('reports-operator.html')
+	cur_url = request.url_rule
+	if 'operator' in cur_url.rule:
+		return render_template('reports-operator.html')
+	else:
+		return render_template('reports_wizher_users.html')
 
 @app.route('/operator/reports')
+@app.route('/eload/reports')
 @operatorMiddleware
 def operatorReports():
-	return render_template('reports-operator.html')
+	cur_url = request.url_rule
+	if 'operator' in cur_url.rule:
+		return render_template('reports-operator.html')
+	else:
+		return render_template('reports_wizher_users.html')
 
 @app.route('/operator/reports/macs')
+@app.route('/eload/reports/macs')
 @operatorMiddleware
 def operatorReportsEach():
-	return render_template('reports-operator.html')
+	cur_url = request.url_rule
+	if 'operator' in cur_url.rule:
+		return render_template('reports-operator.html')
+	else:
+		return render_template('reports_wizher_users.html')
 
 @app.route('/operator/upload_prices', methods = ['POST'])
+@app.route('/eload/upload_prices', methods = ['POST'])
 @operatorMiddleware
 def uploadPricesOpr():
+	cur_url = request.url_rule
 	uploaded = files.uplodCsvPricesOpr()
-	return redirect('/operator/products_services?msg=' + uploaded)
+	if 'operator' in cur_url.rule:
+		return redirect('/operator/products_services?msg=' + uploaded)
+	else:
+		return redirect('/eload/products_services?msg=' + uploaded)
 
 @app.route('/operator/download_prices', methods = ['GET'])
 @operatorMiddleware
@@ -1241,82 +1034,6 @@ def operator_account_recovery_s3():
 			session.pop('vcode_matched', None)
 			return redirect(url_for('operatorLogin'))
 	return render_template('recovery-step3.html', error = error)
-
-# @app.route('/partner/login', methods = ['GET', 'POST'])
-# def partnerLogin():
-# 	error = None
-# 	if request.method == 'POST':
-# 		uname = request.form['username']
-# 		pword = request.form['password']
-# 		validate_pass = auth.checkPassword(uname, pword, 'partner')
-# 		if validate_pass != 'Success':
-# 			error = 'Invalid Username or Password'
-# 		else:
-# 			session['partner'] = uname
-# 			flash(uname)
-# 			return redirect(url_for('partnerHome'))
-# 	return render_template('login.html', error = error)
-
-# @app.route('/partner/logout', methods = ['POST'])
-# def partnerLogout():
-# 	session.pop('partner', None)
-# 	return redirect(url_for('partnerLogin'))
-
-# @app.route('/partner/register', methods = ['GET', 'POST'])
-# def partnerRegister():
-# 	error = None
-# 	if request.method == 'POST':
-# 		if request.form['username'] == '' or request.form['password'] == '':
-# 			error = 'Please Complete Fields'
-# 		elif request.form['password'] != request.form['vpassword']:
-# 			error = 'Password Did not Match'
-# 		else:
-# 			addNewUser = auth.addUser(request.form['username'], 
-# 				request.form['password'], 'Partner')
-# 			return redirect(url_for('partnerLogin'))
-# 	return render_template('register.html', error = error)
-
-# @app.route('/partner/home')
-# @partnerMiddleware
-# def partnerHome():
-# 	return render_template('reports-partner.html')
-
-# @app.route('/partner/balance')
-# @partnerMiddleware
-# def partnerBalance():
-# 	return render_template('reports-partner.html')
-
-# @app.route('/partner/balance/macs')
-# @partnerMiddleware
-# def partnerBalanceEach():
-# 	return render_template('reports-partner.html')
-
-# @app.route('/partner/earnings')
-# @partnerMiddleware
-# def partnerEarnings():
-# 	return render_template('reports-partner.html')
-
-# @app.route('/partner/earnings/macs')
-# @partnerMiddleware
-# def partnerEarningsEach():
-# 	return render_template('reports-partner.html')
-
-# @app.route('/partner/transactions')
-# @partnerMiddleware
-# def partnerTransactions():
-# 	return render_template('reports-partner.html')
-
-# @app.route('/partner/transactions/macs')
-# @partnerMiddleware
-# def partnerTransactionsEach():
-# 	return render_template('reports-partner.html')
-
-# @app.route('/partner/settings')
-# @partnerMiddleware
-# def partnerSettings():
-# 	return render_template('reports-partner.html')
-
-
 
 
 

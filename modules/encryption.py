@@ -24,6 +24,9 @@ class EncStyleBase64:
 		
 		self.key1 = '7jFjIYh3jguTuYMd'
 		self.key2 = 'oMoffwU5NDLGUx9f'
+
+		self.internal_key1 = 'xn4XG2qTBTKO9ltI'
+		self.internal_key2 = 'UOGcen4XGa2qTBT5'
 		self.chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890'
 
 	def encryptData(self, key, data):
@@ -39,6 +42,7 @@ class EncStyleBase64:
 		try:
 			enc = base64.urlsafe_b64decode(enc).decode()
 		except:
+			log.info('Decrypting Failed')
 			return 'Error 101'
 
 		for i in range(len(enc)):
@@ -57,17 +61,19 @@ class EncStyleBase64:
 				'mac' : split[2]
 			}
 		except:
+			log.info('Parsing Failed')
 			return 'Error 102'
 		return obj
 	
-	def extractPassword(self, obj):
+	def extractPassword(self, key, obj):
 		try:
-			obj['password'] = self.decryptData(self.key2, obj['password'])
+			obj['password'] = self.decryptData(key, obj['password'])
 		except:
+			log.info('Extract Password Failed')
 			return 'Error 103'
 		return obj
 
-	def giveTheKey(self, obj):
+	def giveTheKey(self, key, obj):
 		try:
 			conn = mysql.connector.connect(user=self.dbuser, password=self.dbpass, 
 	 				database=self.dbname)		
@@ -90,7 +96,7 @@ class EncStyleBase64:
 		# Password checking
 		password = hashlib.sha256(obj['password'].encode() + token.encode()).hexdigest() + hashlib.sha256(token.encode()).hexdigest()
 		if password != encPassword:
-			log.info('Password checking failed')
+			log.info('Password checking failed: ' + str(obj['password']))
 			return 'Error 104'
 
 		# Generate key3 & key4
@@ -115,8 +121,9 @@ class EncStyleBase64:
 		cursor.execute(query4, (obj['mac'],))
 		macData = cursor.fetchall()
 		if len(macData) > 0:
-			query5 = ''' UPDATE macs_with_keys SET keyA = %s, keyB = %s WHERE mac = %s '''
-			cursor.execute(query5, (key3, key4, obj['mac']))
+			query5 = ''' UPDATE macs_with_keys SET keyA = %s, keyB = %s, activator = %s, 
+						dateUpdated = NOW() WHERE mac = %s '''
+			cursor.execute(query5, (key3, key4, obj['username'], obj['mac']))
 			conn.commit()
 		else:
 			# Insert the mac and created keys in macs_with_keys table
@@ -125,14 +132,14 @@ class EncStyleBase64:
 			conn.commit()
 
 		info = 'Success,' + key3 + ',' + key4 + ',' + macBalance
-		info = self.encryptData(self.key1, info)
+		info = self.encryptData(key, info)
 
 		cursor.close()
 		conn.close()
 		return info.decode()
 
 	# Transacition Phase
-	def validateTransReq(self, enc):
+	def validateTransReq(self, key, enc):
 		try:
 			conn = mysql.connector.connect(user=self.dbuser, password=self.dbpass, 
 	 				database=self.dbname)		
@@ -141,7 +148,7 @@ class EncStyleBase64:
 			return 'Connection Unavailble DB error'
 
 		# decrypt the string
-		decrypt = self.decryptData(self.key1, enc)
+		decrypt = self.decryptData(key, enc)
 
 		# parse decrypted string
 		split = decrypt.split(',')
@@ -156,6 +163,7 @@ class EncStyleBase64:
 				'price' : ''
 			}
 		except:
+			log.info('parse decrypted string error')
 			return 'Error 105'
 
 		# Check if mac is activated
@@ -165,6 +173,7 @@ class EncStyleBase64:
 		if len(macData) == 0:
 			cursor.close()
 			conn.close()
+			log.info('mac is not activated')
 			return 'Error 105'
 
 		# Check if encrypted string exist in msginfos table
@@ -174,6 +183,7 @@ class EncStyleBase64:
 		if len(info) > 0:
 			cursor.close()
 			conn.close()
+			log.info('encrypted string already exist')
 			return 'Error 105'
 
 		# Insert encrypted string into msginfos table

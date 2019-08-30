@@ -44,97 +44,11 @@ reports.factory('func', ['$http', '$route', function($http, $route){
 	
 		return yyyy + '-' + mm + '-' + dd;
 	}
-
-	function Get_Balance(userType, user){
-		return $http({
-			method : 'GET',
-			url : '/api/get-balance?userType=' + userType + '&user=' + user 
-		})
-	}
-	function Get_Balance_Each(userType, user){
-		return $http({
-			method : 'GET',
-			url : '/api/get-balance-each?userType=' + userType + '&user=' + user
-		})
-	}
-	function Count_Mac_With_Balance(userType, user){
-		return $http({
-			method : 'GET',
-			url : '/api/count-mac-with-balance?userType=' + userType + '&user=' + user
-		})
-	}
-	function Get_Remaining_Load(userType, user){
-		return $http({
-			method : 'GET',
-			url : '/api/get-remaining-load?userType=' + userType + '&user=' + user
-		})
-	}
-	function Get_Sales(userType, user, occ){
-		return $http({
-			method : 'GET',
-			url : '/api/get-sales?userType=' + userType + '&user=' + user + '&occ=' + occ
-		})
-	}
-	function Get_Earnings(userType, user, occ){
-		return $http({
-			method : 'GET',
-			url : '/api/get-earnings?userType=' + userType + '&user=' + user + '&occ=' + occ
-		})
-	}
-
-	function Get_Transactions(userType, user, status, occ){
-		return $http({
-			method : 'GET',
-			url : '/api/get-transactions?userType=' + userType + '&user=' + user +
-				  '&status=' + status + '&occ=' + occ
-		})
-	}
-	function Periodic_Dates(period){
-		return $http({
-			method : 'GET',
-			url : '/api/get-periodic-dates?period=' + period
-		})
-	}
-	function Get_Periodic_Balance(userType, user, period){
-		return $http({
-			method : 'GET',
-			url : '/api/get-periodic-balance?userType=' + userType + '&user=' + user +
-				  '&period=' + period
-		})
-	}
-	function Search_Periodic_Balance(userType, user, period, mac){
-		return $http({
-			method : 'GET',
-			url : '/api/search-periodic-balance?userType=' + userType + '&user=' + user +
-				  '&period=' + period + '&mac=' + mac
-		})
-	}
-	function Get_Periodic_Deduction(userType, user, period){
-		return $http({
-			method : 'GET',
-			url : '/api/get-periodic-deduction?userType=' + userType + '&user=' + user +
-				  '&period=' + period
-		})
-	}
-	function Search_Periodic_Deduction(userType, user, period, mac){
-		return $http({
-			method : 'GET',
-			url : '/api/search-periodic-deduction?userType=' + userType + '&user=' + user +
-				  '&period=' + period + '&mac=' + mac
-		})
-	}
 	function Get_Periodic_Transactions_All(userType, user, period){
 		return $http({
 			method : 'GET',
 			url : '/api/get-periodic-transactions-all?userType=' + userType + '&user=' + user +
 				  '&period=' + period 
-		})
-	}
-	function Search_Periodic_Transactions_All(userType, user, period, mac, opr, mob){
-		return $http({
-			method : 'GET',
-			url : '/api/search-periodic-transactions-all?userType=' + userType + '&user=' + user +
-				  '&period=' + period + '&mac=' + mac + '&opr=' + opr + '&mob=' + mob
 		})
 	}
 	function Get_Periodic_Transactions_Success(userType, user, period){
@@ -144,38 +58,11 @@ reports.factory('func', ['$http', '$route', function($http, $route){
 				  '&period=' + period 
 		})
 	}
-	function Search_Periodic_Transactions_Success(userType, user, period, mac, opr, mob){
-		return $http({
-			method : 'GET',
-			url : '/api/search-periodic-transactions-success?userType=' + userType + '&user=' + user +
-				  '&period=' + period + '&mac=' + mac + '&opr=' + opr + '&mob=' + mob
-		})
-	}
 	function Get_Periodic_Transactions_Failed(userType, user, period){
 		return $http({
 			method : 'GET',
 			url : '/api/get-periodic-transactions-failed?userType=' + userType + '&user=' + user +
 				  '&period=' + period 
-		})
-	}
-	function Search_Periodic_Transactions_Failed(userType, user, period, mac, opr, mob){
-		return $http({
-			method : 'GET',
-			url : '/api/search-periodic-transactions-failed?userType=' + userType + '&user=' + user +
-				  '&period=' + period + '&mac=' + mac + '&opr=' + opr + '&mob=' + mob
-		})
-	}
-	function Get_Transaction_Logs(userType, user, occ){
-		return $http({
-			method : 'GET',
-			url : '/api/get-transaction-logs?userType=' + userType + '&user=' + user + '&occ=' + occ
-		})
-	}
-	function Search_Transaction_Logs(userType, user, occ, mac, opr, mob){
-		return $http({
-			method : 'GET',
-			url : '/api/search-transaction-logs?userType=' + userType + '&user=' + user + '&occ=' + occ +
-				  '&mac=' + mac + '&opr=' + opr + '&mob=' + mob
 		})
 	}
 	function Get_Macs_List(userType, user){
@@ -244,12 +131,6 @@ reports.factory('func', ['$http', '$route', function($http, $route){
 			url : '/api/topup-history?operator=' + operator + '&occ=' + occ + '&mac=' + mac
 		})
 	}
-	function Get_Periodic_Sales(userType, user, period, mac){
-		return $http({
-			method : 'GET',
-			url : '/api/get-periodic-sales?userType=' + userType + '&user=' + user + '&period=' + period + '&mac=' + mac
-		})
-	}
 	function Set_Status(opr, mac, status){
 		return $http({
 			method : 'GET',
@@ -296,26 +177,9 @@ reports.factory('func', ['$http', '$route', function($http, $route){
 		getLastDate : getLastDate,
 
 
-		Get_Balance : Get_Balance,
-		Get_Balance_Each : Get_Balance_Each,
-		Count_Mac_With_Balance : Count_Mac_With_Balance,
-		Get_Remaining_Load : Get_Remaining_Load,
-		Get_Sales : Get_Sales,
-		Get_Earnings : Get_Earnings,
-		Get_Transactions : Get_Transactions,
-		Periodic_Dates : Periodic_Dates,
-		Get_Periodic_Balance : Get_Periodic_Balance,
-		Search_Periodic_Balance : Search_Periodic_Balance,
-		Get_Periodic_Deduction : Get_Periodic_Deduction,
-		Search_Periodic_Deduction : Search_Periodic_Deduction,
 		Get_Periodic_Transactions_All : Get_Periodic_Transactions_All,
-		Search_Periodic_Transactions_All : Search_Periodic_Transactions_All,
 		Get_Periodic_Transactions_Success : Get_Periodic_Transactions_Success,
-		Search_Periodic_Transactions_Success : Search_Periodic_Transactions_Success,
 		Get_Periodic_Transactions_Failed : Get_Periodic_Transactions_Failed,
-		Search_Periodic_Transactions_Failed : Search_Periodic_Transactions_Failed,
-		Get_Transaction_Logs : Get_Transaction_Logs,
-		Search_Transaction_Logs : Search_Transaction_Logs,
 		Get_Macs_List : Get_Macs_List,
 		Get_Operators_List : Get_Operators_List,
 		Get_Partners_List : Get_Partners_List,
@@ -327,7 +191,6 @@ reports.factory('func', ['$http', '$route', function($http, $route){
 		Topup_Operator : Topup_Operator,
 		Topup_Operator_Mac : Topup_Operator_Mac,
 		Topup_History : Topup_History,
-		Get_Periodic_Sales : Get_Periodic_Sales,
 		Set_Status : Set_Status,
 		Reset_Password : Reset_Password,
 		Change_Password : Change_Password,
@@ -360,14 +223,13 @@ reports.controller('AdminHomeController', ['$scope', '$http', '$filter', 'events
 		func.adminMainDetails('totalCostSales', startDate, endDate).then(function(response){
 			$scope.totalCostSales = response.data[0]['totalCostSales'];
 		});
-		func.Get_Periodic_Transactions_All('admin', 'admin', 'daily').then(function(a){
-			var all = a.data;
-			func.Get_Periodic_Transactions_Success('admin', 'admin', 'daily').then(function(b){
-				var success = b.data;
-				func.Get_Periodic_Transactions_Failed('admin', 'admin', 'daily').then(function(c){
-					var failed = c.data;
-					var list = [all, success, failed];
-					charts.Transactions_Chart('daily', list);
+		func.adminMainDetails('datedTransAll', startDate, endDate).then(function(response){
+			arr1 = response.data;
+			func.adminMainDetails('datedTransSuccess', startDate, endDate).then(function(response){
+				arr2 = response.data;
+				func.adminMainDetails('datedTransFailed', startDate, endDate).then(function(response){
+					arr3 = response.data;
+					charts.totalTransChart(arr1, arr2, arr3);
 				});
 			});
 		});
@@ -382,56 +244,6 @@ reports.controller('AdminHomeController', ['$scope', '$http', '$filter', 'events
 			$scope.init(start, end);
 		}
 	}
-	// func.Get_Balance('admin', 'admin').then(function(response){
-	// 	$scope.balance = response.data[0]['balance'];
-	// });
-	// func.Count_Mac_With_Balance('admin', 'admin').then(function(response){
-	// 	$scope.withBalance = response.data;
-	// });
-	// func.Get_Remaining_Load('admin', 'admin').then(function(response){
-	// 	$scope.remainingLoad = response.data;
-	// });
-	// $scope.main_info = function(period){
-	// 	func.Get_Sales('admin', 'admin', period).then(function(response){
-	// 		$scope.sales = response.data[0]['sales'];
-	// 	});
-	// 	func.Get_Earnings('admin', 'admin', period).then(function(response){
-	// 		$scope.earnings = response.data[0]['earnings'];
-	// 	});
-	// 	func.Get_Transactions('admin', 'admin', 'all', period).then(function(response){
-	// 		$scope.all_transactions = response.data[0]['transactions'];
-
-	// 	});
-	// 	func.Get_Transactions('admin', 'admin', 'success', period).then(function(response){
-	// 		$scope.success_transactions = response.data[0]['transactions'];
-	// 	});
-	// }
-	// $scope.balance_chart = function(period){
-	// 	func.Get_Periodic_Balance('admin', 'admin', period).then(function(response){
-	// 		charts.Balance_Chart(period, response.data);
-	// 	});
-	// }
-	// $scope.earnings_chart = function(period){
-	// 	func.Get_Periodic_Sales('admin', 'admin', period, '').then(function(response){
-	// 		charts.Earnings_Chart(period, response.data);
-	// 	});
-	// }
-	// $scope.transactions_chart = function(period){
-	// 	func.Get_Periodic_Transactions_All('admin', 'admin', period).then(function(a){
-	// 		var all = a.data;
-	// 		func.Get_Periodic_Transactions_Success('admin', 'admin', period).then(function(b){
-	// 			var success = b.data;
-	// 			func.Get_Periodic_Transactions_Failed('admin', 'admin', period).then(function(c){
-	// 				var failed = c.data;
-	// 				var list = [all, success, failed];
-	// 				charts.Transactions_Chart(period, list);
-	// 			});
-	// 		});
-	// 	});
-	// }
-	// events.db_navigate_main_info();
-	// events.db_navigate_bal_chart();
-	// events.db_navigate_earn_chart();
 	events.db_navigate_trans_chart();
 	
 }]);
@@ -463,14 +275,13 @@ reports.controller('OperatorHomeController', ['$scope', '$http', '$filter', 'eve
 		func.oprMainDetails('totalServiceCharge', startDate, endDate, operator).then(function(response){
 			$scope.totalServiceCharge = response.data[0]['totalServiceCharge'];
 		});
-		func.Get_Periodic_Transactions_All('operator', operator, 'daily').then(function(a){
-			var all = a.data;
-			func.Get_Periodic_Transactions_Success('operator', operator, 'daily').then(function(b){
-				var success = b.data;
-				func.Get_Periodic_Transactions_Failed('operator', operator, 'daily').then(function(c){
-					var failed = c.data;
-					var list = [all, success, failed];
-					charts.Transactions_Chart('daily', list);
+		func.oprMainDetails('datedTransAll', startDate, endDate, operator).then(function(response){
+			arr1 = response.data;
+			func.oprMainDetails('datedTransSuccess', startDate, endDate, operator).then(function(response){
+				arr2 = response.data;
+				func.oprMainDetails('datedTransFailed', startDate, endDate, operator).then(function(response){
+					arr3 = response.data;
+					charts.totalTransChart(arr1, arr2, arr3);
 				});
 			});
 		});
@@ -485,61 +296,6 @@ reports.controller('OperatorHomeController', ['$scope', '$http', '$filter', 'eve
 			$scope.init(start, end);
 		}
 	}
-
-
-
-
-
-	
-	// func.Get_Balance('operator', operator).then(function(response){
-	// 	$scope.balance = response.data[0]['balance'];
-	// });
-	// func.Count_Mac_With_Balance('operator', operator).then(function(response){
-	// 	$scope.withBalance = response.data;
-	// });
-	// func.Get_Remaining_Load('operator', operator).then(function(response){
-	// 	$scope.remainingLoad = response.data;
-	// });
-	// $scope.main_info = function(period){
-	// 	func.Get_Sales('operator', operator, period).then(function(response){
-	// 		$scope.sales = response.data[0]['sales'];
-	// 	});
-	// 	func.Get_Earnings('operator', operator, period).then(function(response){
-	// 		$scope.earnings = response.data[0]['earnings'];
-	// 	});
-	// 	func.Get_Transactions('operator', operator, 'all', period).then(function(response){
-	// 		$scope.all_transactions = response.data[0]['transactions'];
-	// 	});
-	// 	func.Get_Transactions('operator', operator, 'success', period).then(function(response){
-	// 		$scope.success_transactions = response.data[0]['transactions'];
-	// 	});
-	// }
-	// $scope.balance_chart = function(period){
-	// 	func.Get_Periodic_Balance('operator', operator, period).then(function(response){
-	// 		charts.Balance_Chart(period, response.data);
-	// 	});
-	// }
-	// $scope.earnings_chart = function(period){
-	// 	func.Get_Periodic_Sales('operator', operator, period, '').then(function(response){
-	// 		charts.Earnings_Chart(period, response.data);
-	// 	});
-	// }
-	// $scope.transactions_chart = function(period){
-	// 	func.Get_Periodic_Transactions_All('operator', operator, period).then(function(a){
-	// 		var all = a.data;
-	// 		func.Get_Periodic_Transactions_Success('operator', operator, period).then(function(b){
-	// 			var success = b.data;
-	// 			func.Get_Periodic_Transactions_Failed('operator', operator, period).then(function(c){
-	// 				var failed = c.data;
-	// 				var list = [all, success, failed];
-	// 				charts.Transactions_Chart(period, list);
-	// 			});
-	// 		});
-	// 	});
-	// }
-	// events.db_navigate_main_info();
-	// events.db_navigate_bal_chart();
-	// events.db_navigate_earn_chart();
 	events.db_navigate_trans_chart();
 
 }]);
@@ -851,647 +607,13 @@ reports.controller('OperatorTopupControllerEach', ['$scope', '$http', '$filter',
 
 
 
-reports.controller('AdminBalanceController', ['$scope', '$http', '$filter', 'events', 'func',
-'$route', function($scope, $http, $filter, events, func, $route){
-	$('.main').hide().fadeIn();
-	$scope.balance_table = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';
-		func.Get_Macs_List('admin', '').then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Get_Periodic_Balance('admin', 'admin', period).then(function(response){
-			$scope.balance = response.data;
-		});
-		func.Get_Periodic_Deduction('admin', 'admin', period).then(function(response){
-			$scope.deduction = response.data;
-			$scope._deduction = $scope.deduction.reduce((x, y) => x + y.deduction, 0); // Sum of objects
-			$scope._topup = $scope.deduction.reduce((x, y) => x + y.topup, 0);
-		});
-		
-		$scope.reload = function(){
-			$route.reload();
-		}
-		$('.bl-select-mac').change(function(){
-			var mac_selected = $('.bl-select-mac').find(':selected').text();
-			window.location.replace('/admin/balance/macs?mac=' + mac_selected);
-		});
-	}
-	events.bl_tab_navigator();
-	
-}]);
-reports.controller('AdminBalanceControllerEach', ['$scope', '$http', '$filter', 'events', 'func',
-'$route', '$location', function($scope, $http, $filter, events, func, $route, $location){
-	$('.main').hide().fadeIn();
-	mac = $location.search().mac;
-	$scope.balance_table = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';
-		func.Get_Macs_List('admin', '').then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Search_Periodic_Balance('admin', 'admin', period, mac).then(function(response){
-			$scope.balance = response.data;
-		});
-		func.Search_Periodic_Deduction('admin', 'admin', period, mac).then(function(response){
-			$scope.deduction = response.data;
-			$scope._deduction = $scope.deduction.reduce((x, y) => x + y.deduction, 0);
-			$scope._topup = $scope.deduction.reduce((x, y) => x + y.topup, 0);
-		});
-		
-		$scope.reload = function(){
-			window.location.replace('/admin/balance');
-		}
-		$('.bl-select-mac').change(function(){
-			var mac_selected = $('.bl-select-mac').find(':selected').text();
-			window.location.replace('/admin/balance/macs?mac=' + mac_selected);
-		});
-	}
-	events.bl_tab_navigator();
-	
-}]);
-
-reports.controller('OperatorBalanceController', ['$scope', '$http', '$filter', 'events', 'func',
-'$route', function($scope, $http, $filter, events, func, $route){
-	$('.main').hide().fadeIn();
-	operator = $('.logged-user').text();
-	$scope.balance_table = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';
-		func.Get_Macs_List('operator', operator).then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Get_Periodic_Balance('operator', operator, period).then(function(response){
-			$scope.balance = response.data;
-		});
-		func.Get_Periodic_Deduction('operator', operator, period).then(function(response){
-			$scope.deduction = response.data;
-			$scope._deduction = $scope.deduction.reduce((x, y) => x + y.deduction, 0);
-			$scope._topup = $scope.deduction.reduce((x, y) => x + y.topup, 0);
-		});
-
-		$scope.reload = function(){
-			$route.reload();
-		}
-		$('.bl-select-mac').change(function(){
-			var mac_selected = $('.bl-select-mac').find(':selected').text();
-			window.location.replace('/operator/balance/macs?mac=' + mac_selected);
-		});
-	}
-	events.bl_tab_navigator();
-
-}]);
-reports.controller('OperatorBalanceControllerEach', ['$scope', '$http', '$filter', 'events', 'func',
-'$route', '$location', function($scope, $http, $filter, events, func, $route, $location){
-	$('.main').hide().fadeIn();
-	operator = $('.logged-user').text();
-	mac = $location.search().mac;
-	$scope.balance_table = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';
-		func.Get_Macs_List('operator', operator).then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Search_Periodic_Balance('operator', operator, period, mac).then(function(response){
-			$scope.balance = response.data;
-		});
-		func.Search_Periodic_Deduction('operator', operator, period, mac).then(function(response){
-			$scope.deduction = response.data;
-			$scope._deduction = $scope.deduction.reduce((x, y) => x + y.deduction, 0);
-			$scope._topup = $scope.deduction.reduce((x, y) => x + y.topup, 0);
-		});
-
-		$scope.reload = function(){
-			window.location.replace('/operator/balance');
-		}
-		$('.bl-select-mac').change(function(){
-			var mac_selected = $('.bl-select-mac').find(':selected').text();
-			window.location.replace('/operator/balance/macs?mac=' + mac_selected);
-		});
-	}
-	events.bl_tab_navigator();
-
-}]);
-
-reports.controller('PartnerBalanceController', ['$scope', '$http', '$filter', 'events', 'func',
-'$route', function($scope, $http, $filter, events, func, $route){
-	$('.main').hide().fadeIn();
-	partner = $('.logged-user').text();
-	$scope.balance_table = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';
-		func.Get_Macs_List('partner', partner).then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Get_Periodic_Balance('partner', partner, period).then(function(response){
-			$scope.balance = response.data;
-		});
-		func.Get_Periodic_Deduction('partner', partner, period).then(function(response){
-			$scope.deduction = response.data;
-			$scope._deduction = $scope.deduction.reduce((x, y) => x + y.deduction, 0);
-			$scope._topup = $scope.deduction.reduce((x, y) => x + y.topup, 0);
-		});
-
-		$scope.reload = function(){
-			$route.reload();
-		}
-		$('.bl-select-mac').change(function(){
-			var mac_selected = $('.bl-select-mac').find(':selected').text();
-			window.location.replace('/partner/balance/macs?mac=' + mac_selected);
-		});
-	}
-	events.bl_tab_navigator();
-}]);
-
-reports.controller('PartnerBalanceControllerEach', ['$scope', '$http', '$filter', 'events', 'func',
-'$route', '$location', function($scope, $http, $filter, events, func, $route, $location){
-	$('.main').hide().fadeIn();
-	partner = $('.logged-user').text();
-	mac = $location.search().mac;
-	$scope.balance_table = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';
-		func.Get_Macs_List('partner', partner).then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Search_Periodic_Balance('partner', partner, period, mac).then(function(response){
-			$scope.balance = response.data;
-		});
-		func.Search_Periodic_Deduction('partner', partner, period, mac).then(function(response){
-			$scope.deduction = response.data;
-			$scope._deduction = $scope.deduction.reduce((x, y) => x + y.deduction, 0);
-			$scope._topup = $scope.deduction.reduce((x, y) => x + y.topup, 0);
-		});
-
-		$scope.reload = function(){
-			window.location.replace('/partner/balance');
-		}
-		$('.bl-select-mac').change(function(){
-			var mac_selected = $('.bl-select-mac').find(':selected').text();
-			window.location.replace('/partner/balance/macs?mac=' + mac_selected);
-		});
-	}
-	events.bl_tab_navigator();
-}]);
 
 
 
 
 
-reports.controller('AdminEarningsController', ['$scope', '$http', '$filter', 'events', 'func', '$route',
-function($scope, $http, $filter, events, func, $route){
-	$('.main').hide().fadeIn();
-	$scope.earnings_table = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';	// occ = occurence
-		func.Get_Macs_List('admin', '').then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Get_Periodic_Sales('admin', 'admin', period, '').then(function(response){
-			$scope.sales = response.data
-			$scope.totalsales = $scope.sales.reduce((x, y) => x + y.sale, 0);
-			$scope.totalrevenue = $scope.sales.reduce((x, y) => x + y.revenue, 0);
-		});
-
-		$scope.reload = function(){
-			$route.reload();
-		}
-		$('.ea-select-mac').change(function(){
-			var mac_selected = $('.ea-select-mac').find(':selected').text();
-			window.location.replace('/admin/earnings/macs?mac=' + mac_selected);
-		});
-	}
-	events.ea_tab_navigator();
-}]);
-reports.controller('AdminEarningsControllerEach', ['$scope', '$http', '$filter', 'events', 'func', '$location',
-function($scope, $http, $filter, events, func, $location){
-	$('.main').hide().fadeIn();
-	mac = $location.search().mac;
-	$scope.earnings_table = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';	// occ = occurence
-		func.Get_Macs_List('admin', '').then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Get_Periodic_Sales('admin', 'admin', period, mac).then(function(response){
-			$scope.sales = response.data
-			$scope.totalsales = $scope.sales.reduce((x, y) => x + y.sale, 0);
-			$scope.totalrevenue = $scope.sales.reduce((x, y) => x + y.revenue, 0);
-		});
-
-		$scope.reload = function(){
-			window.location.replace('/admin/earnings');
-		}
-		$('.ea-select-mac').change(function(){
-			var mac_selected = $('.ea-select-mac').find(':selected').text();
-			window.location.replace('/admin/earnings/macs?mac=' + mac_selected);
-		});
-	}
-	events.ea_tab_navigator();
-}]);
-
-reports.controller('OperatorEarningsController', ['$scope', '$http', '$filter', 'events', 'func', '$route',
-function($scope, $http, $filter, events, func, $route){
-	$('.main').hide().fadeIn();
-	operator = $('.logged-user').text();
-	$scope.earnings_table = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';
-		func.Get_Macs_List('operator', operator).then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Get_Periodic_Sales('operator', operator, period, '').then(function(response){
-			$scope.sales = response.data
-			$scope.totalsales = $scope.sales.reduce((x, y) => x + y.sale, 0);
-			$scope.totalrevenue = $scope.sales.reduce((x, y) => x + y.revenue, 0);
-		});
-
-		$scope.reload = function(){
-			$route.reload();
-		}
-		$('.ea-select-mac').change(function(){
-			var mac_selected = $('.ea-select-mac').find(':selected').text();
-			window.location.replace('/operator/earnings/macs?mac=' + mac_selected);
-		});
-	}
-	events.ea_tab_navigator();
-}]);
-reports.controller('OperatorEarningsControllerEach', ['$scope', '$http', '$filter', 'events', 'func', '$location',
-function($scope, $http, $filter, events, func, $location){
-	$('.main').hide().fadeIn();
-	operator = $('.logged-user').text();
-	mac = $location.search().mac;
-	$scope.earnings_table = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';
-		func.Get_Macs_List('operator', operator).then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Get_Periodic_Sales('operator', operator, period, mac).then(function(response){
-			$scope.sales = response.data
-			$scope.totalsales = $scope.sales.reduce((x, y) => x + y.sale, 0);
-			$scope.totalrevenue = $scope.sales.reduce((x, y) => x + y.revenue, 0);
-		});
-
-		$scope.reload = function(){
-			window.location.replace('/operator/earnings');
-		}
-		$('.ea-select-mac').change(function(){
-			var mac_selected = $('.ea-select-mac').find(':selected').text();
-			window.location.replace('/operator/earnings/macs?mac=' + mac_selected);
-		});
-	}
-	events.ea_tab_navigator();
-}]);
-
-reports.controller('PartnerEarningsController', ['$scope', '$http', '$filter', 'events', 'func', '$route',
-function($scope, $http, $filter, events, func, $route){
-	$('.main').hide().fadeIn();
-	partner = $('.logged-user').text();
-	$scope.earnings_table = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';
-		func.Get_Macs_List('partner', partner).then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Get_Periodic_Sales('partner', partner, period, '').then(function(response){
-			$scope.sales = response.data
-			$scope.totalsales = $scope.sales.reduce((x, y) => x + y.sale, 0);
-			$scope.totalrevenue = $scope.sales.reduce((x, y) => x + y.revenue, 0);
-		});
-
-		$scope.reload = function(){
-			$route.reload();
-		}
-		$('.ea-select-mac').change(function(){
-			var mac_selected = $('.ea-select-mac').find(':selected').text();
-			window.location.replace('/partner/earnings/macs?mac=' + mac_selected);
-		});
-	}
-	events.ea_tab_navigator();
-}]);
-reports.controller('PartnerEarningsControllerEach', ['$scope', '$http', '$filter', 'events', 'func', '$location',
-function($scope, $http, $filter, events, func, $location){
-	$('.main').hide().fadeIn();
-	partner = $('.logged-user').text();
-	mac = $location.search().mac;
-	$scope.earnings_table = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';
-		func.Get_Macs_List('partner', partner).then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Get_Periodic_Sales('partner', partner, period, mac).then(function(response){
-			$scope.sales = response.data
-			$scope.totalsales = $scope.sales.reduce((x, y) => x + y.sale, 0);
-			$scope.totalrevenue = $scope.sales.reduce((x, y) => x + y.revenue, 0);
-		});
-
-		$scope.reload = function(){
-			window.location.replace('/partner/earnings');
-		}
-		$('.ea-select-mac').change(function(){
-			var mac_selected = $('.ea-select-mac').find(':selected').text();
-			window.location.replace('/partner/earnings/macs?mac=' + mac_selected);
-		});
-	}
-	events.ea_tab_navigator();
-}]);
 
 
-
-
-
-reports.controller('AdminTransactionsController', ['$scope', '$http', '$filter', 'events', 'func',
-'$route', function($scope, $http, $filter, events, func, $route){
-	$('.main').hide().fadeIn();
-	$scope.userType = 'admin';
-	$scope.hideServiceCharge = true;
-	$scope.render_transactions = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';
-		func.Get_Macs_List('admin', '').then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Get_Periodic_Transactions_All('admin', 'admin', period).then(function(response){
-			$scope.all = response.data;
-			$scope._all = $scope.all.reduce((x, y) => x + y.transactions, 0);	// Sum of Objects
-		});
-		func.Get_Periodic_Transactions_Success('admin', 'admin', period).then(function(response){
-			$scope.success = response.data;
-			$scope._success = $scope.success.reduce((x, y) => x + y.transactions, 0);
-		});
-		func.Get_Periodic_Transactions_Failed('admin', 'admin', period).then(function(response){
-			$scope.failed = response.data;
-			$scope._failed = $scope.failed.reduce((x ,y) => x + y.transactions, 0);
-		});
-		func.Get_Transaction_Logs('admin', 'admin', period).then(function(response){
-			$scope.logs = response.data;
-			$('.tr-logs-table').tableHeadFixer();
-		});
-
-		$scope.reload = function(){
-			$route.reload();
-		}
-		
-		// Select mac in dropdown
-		$('.tr-select-mac').change(function(){
-			var mac_selected = $('.tr-select-mac').find(':selected').text();
-			window.location.replace('/admin/transactions/macs?mac=' + mac_selected + '&opr=&mob=');
-		});
-	}
-	events.tr_tab_navigator();
-}]);
-reports.controller('AdminTransactionsControllerEach', ['$scope', '$http', '$filter', 'events', 'func',
-'$route', '$location', function($scope, $http, $filter, events, func, $route, $location){
-	$('.main').hide().fadeIn();
-	$scope.userType = 'admin';
-	$scope.hideServiceCharge = true;
-	mac = $location.search().mac;
-	opr = $location.search().opr;
-	mob = $location.search().mob;
-	$scope.render_transactions = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';
-		func.Get_Macs_List('admin', '').then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Search_Periodic_Transactions_All('admin', 'admin', period, mac, opr, mob).then(function(response){
-			$scope.all = response.data;
-			$scope._all = $scope.all.reduce((x, y) => x + y.transactions, 0);
-		});
-		func.Search_Periodic_Transactions_Success('admin', 'admin', period, mac, opr, mob).then(function(response){
-			$scope.success = response.data;
-			$scope._success = $scope.success.reduce((x, y) => x + y.transactions, 0);
-		});
-		func.Search_Periodic_Transactions_Failed('admin', 'admin', period, mac, opr, mob).then(function(response){
-			$scope.failed = response.data;
-			$scope._failed = $scope.failed.reduce((x ,y) => x + y.transactions, 0);
-		});
-		func.Search_Transaction_Logs('admin', 'admin', period, mac, opr, mob).then(function(response){
-			$scope.logs = response.data;
-			$('.tr-logs-table').tableHeadFixer();
-		});
-
-		$scope.reload = function(){
-			window.location.replace('/admin/transactions');
-		}
-
-		// Select mac in dropdown
-		$('.tr-select-mac').change(function(){
-			var mac_selected = $('.tr-select-mac').find(':selected').text();
-			window.location.replace('/admin/transactions/macs?mac=' + mac_selected + '&opr=&mob=');
-		});
-	}
-	events.tr_tab_navigator();
-}]);
-
-reports.controller('OperatorTransactionsController', ['$scope', '$http', '$filter', 'events', 'func',
-'$route', function($scope, $http, $filter, events, func, $route){
-	$('.main').hide().fadeIn();
-	$scope.userType = 'operator';
-	operator = $('.logged-user').text();
-	$scope.hideAdminBalance = true, $scope.hideAdmProdCost = true, $scope.hideAdmPubPrice = true,
-	$scope.hideAdmProCostEarning = true, $scope.hideAdmRev = true, $scope.hideOwner = true;
-	$scope.render_transactions = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';
-		func.Get_Macs_List('operator', operator).then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Get_Periodic_Transactions_All('operator', operator, period).then(function(response){
-			$scope.all = response.data;
-			$scope._all = $scope.all.reduce((x, y) => x + y.transactions, 0);
-		});
-		func.Get_Periodic_Transactions_Success('operator', operator, period).then(function(response){
-			$scope.success = response.data;
-			$scope._success = $scope.success.reduce((x, y) => x + y.transactions, 0);
-		});
-		func.Get_Periodic_Transactions_Failed('operator', operator, period).then(function(response){
-			$scope.failed = response.data;
-			$scope._failed = $scope.failed.reduce((x ,y) => x + y.transactions, 0);
-		});
-		func.Get_Transaction_Logs('operator', operator, period).then(function(response){
-			$scope.logs = response.data;
-			$('.tr-logs-table').tableHeadFixer();
-		});
-
-		$scope.reload = function(){
-			$route.reload();
-		}
-
-		// Select mac in dropdown
-		$('.tr-select-mac').change(function(){
-			var mac_selected = $('.tr-select-mac').find(':selected').text();
-			window.location.replace('/operator/transactions/macs?mac=' + mac_selected + '&opr=&mob=');
-		});
-	}
-	events.tr_tab_navigator();
-}]);
-reports.controller('OperatorTransactionsControllerEach', ['$scope', '$http', '$filter', 'events', 'func',
-'$route', '$location', function($scope, $http, $filter, events, func, $route, $location){
-	$('.main').hide().fadeIn();
-	$scope.userType = 'operator';
-	operator = $('.logged-user').text();
-	$scope.hideAdminRevenue = true, $scope.hideAdminBalance = true, $scope.hideOwner = true;
-	mac = $location.search().mac;
-	opr = $location.search().opr;
-	mob = $location.search().mob;
-	$scope.render_transactions = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';
-		func.Get_Macs_List('operator', operator).then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Search_Periodic_Transactions_All('operator', operator, period, mac, opr, mob).then(function(response){
-			$scope.all = response.data;
-			$scope._all = $scope.all.reduce((x, y) => x + y.transactions, 0);
-		});
-		func.Search_Periodic_Transactions_Success('operator', operator, period, mac, opr, mob).then(function(response){
-			$scope.success = response.data;
-			$scope._success = $scope.success.reduce((x, y) => x + y.transactions, 0);
-		});
-		func.Search_Periodic_Transactions_Failed('operator', operator, period, mac, opr, mob).then(function(response){
-			$scope.failed = response.data;
-			$scope._failed = $scope.failed.reduce((x ,y) => x + y.transactions, 0);
-		});
-		func.Search_Transaction_Logs('operator', operator, period, mac, opr, mob).then(function(response){
-			$scope.logs = response.data;
-			$('.tr-logs-table').tableHeadFixer();
-		});
-
-		$scope.reload = function(){
-			window.location.replace('/operator/transactions');
-		}
-
-		// Select mac in dropdown
-		$('.tr-select-mac').change(function(){
-			var mac_selected = $('.tr-select-mac').find(':selected').text();
-			window.location.replace('/operator/transactions/macs?mac=' + mac_selected + '&opr=&mob=');
-		});
-	}
-	events.tr_tab_navigator();
-}]);
-
-reports.controller('PartnerTransactionsController', ['$scope', '$http', '$filter', 'events', 'func',
-'$route', function($scope, $http, $filter, events, func, $route){
-	$('.main').hide().fadeIn();
-	$scope.userType = 'partner';
-	partner = $('.logged-user').text();
-	$scope.hide_admin_bal = true;
-	$scope.render_transactions = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';
-		func.Get_Macs_List('partner', partner).then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Get_Periodic_Transactions_All('partner', partner, period).then(function(response){
-			$scope.all = response.data;
-			$scope._all = $scope.all.reduce((x, y) => x + y.transactions, 0);
-		});
-		func.Get_Periodic_Transactions_Success('partner', partner, period).then(function(response){
-			$scope.success = response.data;
-			$scope._success = $scope.success.reduce((x, y) => x + y.transactions, 0);
-		});
-		func.Get_Periodic_Transactions_Failed('partner', partner, period).then(function(response){
-			$scope.failed = response.data;
-			$scope._failed = $scope.failed.reduce((x ,y) => x + y.transactions, 0);
-		});
-		func.Get_Transaction_Logs('partner', partner, period).then(function(response){
-			$scope.logs = response.data;
-		});
-
-		$scope.reload = function(){
-			$route.reload();
-		}
-
-		// Select mac in dropdown
-		$('.tr-select-mac').change(function(){
-			var mac_selected = $('.tr-select-mac').find(':selected').text();
-			window.location.replace('/partner/transactions/macs?mac=' + mac_selected + '&opr=&mob=');
-		});
-	}
-	events.tr_tab_navigator();
-}]);
-reports.controller('PartnerTransactionsControllerEach', ['$scope', '$http', '$filter', 'events', 'func',
-'$route', '$location', function($scope, $http, $filter, events, func, $route, $location){
-	$('.main').hide().fadeIn();
-	$scope.userType = 'partner';
-	partner = $('.logged-user').text();
-	$scope.hide_admin_bal = true;
-	mac = $location.search().mac;
-	opr = $location.search().opr;
-	mob = $location.search().mob;
-	$scope.render_transactions = function(period){
-		period == 'daily' ? $scope.occ = 'Days' : period == 'weekly' ? $scope.occ = 'Weeks' : $scope.occ = 'Months';
-		func.Get_Macs_List('partner', partner).then(function(response){
-			$scope.macs = response.data;
-		});
-		func.Periodic_Dates(period).then(function(response){
-			$scope.dates = response.data;
-		});
-		func.Search_Periodic_Transactions_All('partner', partner, period, mac, opr, mob).then(function(response){
-			$scope.all = response.data;
-			$scope._all = $scope.all.reduce((x, y) => x + y.transactions, 0);
-		});
-		func.Search_Periodic_Transactions_Success('partner', partner, period, mac, opr, mob).then(function(response){
-			$scope.success = response.data;
-			$scope._success = $scope.success.reduce((x, y) => x + y.transactions, 0);
-		});
-		func.Search_Periodic_Transactions_Failed('partner', partner, period, mac, opr, mob).then(function(response){
-			$scope.failed = response.data;
-			$scope._failed = $scope.failed.reduce((x ,y) => x + y.transactions, 0);
-		});
-		func.Search_Transaction_Logs('partner', partner, period, mac, opr, mob).then(function(response){
-			$scope.logs = response.data;
-		});
-
-		$scope.reload = function(){
-			window.location.replace('/partner/transactions');
-		}
-
-		// Select mac in dropdown
-		$('.tr-select-mac').change(function(){
-			var mac_selected = $('.tr-select-mac').find(':selected').text();
-			window.location.replace('/partner/transactions/macs?mac=' + mac_selected + '&opr=&mob=');
-		});
-	}
-	events.tr_tab_navigator();
-}]);
 
 
 
@@ -1582,32 +704,7 @@ function($scope, events, func){
 		});
 	}
 }]);
-reports.controller('PartnerSettingsController', ['$scope', 'events', 'func', 
-function($scope, events, func){
-	$('.main').hide().fadeIn();
-	user = $('.logged-user').text();
-	$scope.change_password = function(){
-		curr_pass = $('.sett-password').val();
-		new_pass = $('.sett-new-password').val();
-		confirm_pass = $('.sett-confirm-password').val();
-		err_msg = "<font><b>Error: </b>Passwords didn't matched</font>"
 
-		if(new_pass != confirm_pass){
-			$('.sett-changepass-err').empty().append(err_msg);
-			return $('.sett-password, .sett-new-password, .sett-confirm-password').val('');
-		}
-		func.Change_Password(user, curr_pass, new_pass).then(function(response){
-			if(response.data == 'Failed, password not matched'){
-				$('.sett-changepass-err').empty().append(err_msg);
-				$('.sett-password, .sett-new-password, .sett-confirm-password').val('');	
-			}
-			else{
-				alert(response.data);
-				window.location.replace('/partner/home');
-			}
-		});
-	}
-}]);
 
 
 
@@ -1746,7 +843,10 @@ reports.controller('OperatorProdServController', ['$scope', '$http', '$filter', 
 			$scope.products = response.data;
 		});
 	});
-	form = "<form action = '/operator/upload_prices' method = 'POST' " +
+	urlPath = window.location.pathname;
+	mainPath = urlPath.split('/');
+	mainPath = mainPath[1];
+	form = "<form action = '/" + mainPath + "/upload_prices' method = 'POST' " +
 				"enctype = 'multipart/form-data'>" +
 				"<input type='hidden' name='operator' value='" + operator + "'>" +
 				"<input class='ps-choose-file' type = 'file' name = 'file' />" +
@@ -1762,7 +862,7 @@ reports.controller('OperatorProdServController', ['$scope', '$http', '$filter', 
 		return vars;
 	}
 	upload_status = getUrlVars()['msg']
-	upload_status != undefined ? (alert(upload_status.split('%20').join(' ')), window.location.replace('/operator/products_services')) : 0
+	upload_status != undefined ? (alert(upload_status.split('%20').join(' ')), window.location.replace('/' + mainPath + '/products_services')) : 0
 }]);
 
 

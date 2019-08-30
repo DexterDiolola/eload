@@ -191,7 +191,7 @@ class Transactions:
 		# Generate rrn
 		rrn = 'WIZS' + ''.join(random.choice('1234567890') for i in range(10))
 		# md5 hashing for auth
-		auth = self.auth(rrn, self.uid+self.pword)
+		auth = self.auth('WIZS76672587', self.uid+self.pword)
 
 		if dict_param['price'] == '' or dict_param['price'] == None:
 			dict_param['price'] = 0
@@ -210,9 +210,9 @@ class Transactions:
 		
 		# Send an API request to load central
 		req = requests.get('https://loadcentral.net/sellapi.do?uid=' + self.uid + 
-			'&auth=' + auth + '&pcode=' + dict_param['denomination'] + '&to=' + dict_param['mobileNum'] + '&rrn=' + rrn)
+			'&auth=' + auth + '&pcode=' + dict_param['denomination'] + '&to=' + dict_param['mobileNum'] + '&rrn=' + 'WIZS76672587')
 		log.info('url for transactions :' + 'https://loadcentral.net/sellapi.do?uid=' + self.uid + 
-			'&auth=' + auth + '&pcode=' + dict_param['denomination'] + '&to=' + dict_param['mobileNum'] + '&rrn=' + rrn)
+			'&auth=' + auth + '&pcode=' + dict_param['denomination'] + '&to=' + dict_param['mobileNum'] + '&rrn=' + 'WIZS76672587')
 		resp = req.text
 		
 		resp = bs4.BeautifulSoup(resp, 'html5lib')
@@ -241,11 +241,11 @@ class Transactions:
 		response = json.dumps(obj)
 
 		
-		if resp_resp != '0':
-			# Write to failed directory
-			self.init_trans(obj, 'failed', self.failed_path)
-			# return response // When im going to use the mediation /getLoadMK
-			return 'Error: ' + obj['resp'] + '. ' + obj['err'] + '. Please Repeat Transaction.'
+		# if resp_resp != '0':
+		# 	# Write to failed directory
+		# 	self.init_trans(obj, 'failed', self.failed_path)
+		# 	# return response // When im going to use the mediation /getLoadMK
+		# 	return 'Error: ' + obj['resp'] + '. ' + obj['err'] + '. Please Repeat Transaction.'
 		
 
 		# Write to success directory

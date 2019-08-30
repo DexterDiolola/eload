@@ -13,30 +13,6 @@ reports.config(['$routeProvider', '$locationProvider',
 		templateUrl : path_to_views + 'all-dashboard.html',
 		controller : 'AdminHomeController'
 	})
-	.when('/admin/balance',{
-		templateUrl : path_to_views + 'all-balance.html',
-		controller : 'AdminBalanceController'
-	})
-	.when('/admin/balance/macs',{
-		templateUrl : path_to_views + 'all-balance.html',
-		controller : 'AdminBalanceControllerEach'
-	})
-	.when('/admin/earnings', {
-		templateUrl : path_to_views + 'all-earnings.html',
-		controller : 'AdminEarningsController'
-	})
-	.when('/admin/earnings/macs', {
-		templateUrl : path_to_views + 'all-earnings.html',
-		controller : 'AdminEarningsControllerEach'
-	})
-	.when('/admin/transactions', {
-		templateUrl : path_to_views + 'all-transactions.html',
-		controller : 'AdminTransactionsController'
-	})
-	.when('/admin/transactions/macs', {
-		templateUrl : path_to_views + 'all-transactions.html',
-		controller : 'AdminTransactionsControllerEach'
-	})
 	.when('/admin/administration', {
 		templateUrl : path_to_views + 'administration.html',
 		controller : 'AdministrationController'
@@ -79,30 +55,6 @@ reports.config(['$routeProvider', '$locationProvider',
 		templateUrl : path_to_views + 'all-dashboard.html',
 		controller : 'OperatorHomeController'
 	})
-	.when('/operator/balance',{
-		templateUrl : path_to_views + 'all-balance.html',
-		controller : 'OperatorBalanceController'
-	})
-	.when('/operator/balance/macs',{
-		templateUrl : path_to_views + 'all-balance.html',
-		controller : 'OperatorBalanceControllerEach'
-	})
-	.when('/operator/earnings', {
-		templateUrl : path_to_views + 'all-earnings.html',
-		controller : 'OperatorEarningsController'
-	})
-	.when('/operator/earnings/macs', {
-		templateUrl : path_to_views + 'all-earnings.html',
-		controller : 'OperatorEarningsControllerEach'
-	})
-	.when('/operator/transactions', {
-		templateUrl : path_to_views + 'all-transactions.html',
-		controller : 'OperatorTransactionsController'
-	})
-	.when('/operator/transactions/macs', {
-		templateUrl : path_to_views + 'all-transactions.html',
-		controller : 'OperatorTransactionsControllerEach'
-	})
 	.when('/operator/load_wallet', {
 		templateUrl : path_to_views + 'topup-operator.html',
 		controller : 'OperatorTopupController'
@@ -133,43 +85,37 @@ reports.config(['$routeProvider', '$locationProvider',
 	})
 
 
-
-
-
-
-
-	.when('/partner/home', {
+	.when('/eload/home', {
 		templateUrl : path_to_views + 'all-dashboard.html',
-		controller : 'PartnerHomeController'
+		controller : 'OperatorHomeController'
 	})
-	.when('/partner/balance',{
-		templateUrl : path_to_views + 'all-balance.html',
-		controller : 'PartnerBalanceController'
+	.when('/eload/load_wallet', {
+		templateUrl : path_to_views + 'topup-operator.html',
+		controller : 'OperatorTopupController'
 	})
-	.when('/partner/balance/macs',{
-		templateUrl : path_to_views + 'all-balance.html',
-		controller : 'PartnerBalanceControllerEach'
+	.when('/eload/load_wallet/macs', {
+		templateUrl : path_to_views + 'topup-operator.html',
+		controller : 'OperatorTopupControllerEach'
 	})
-	.when('/partner/earnings', {
-		templateUrl : path_to_views + 'all-earnings.html',
-		controller : 'PartnerEarningsController'
+	.when('/eload/products_services', {
+		templateUrl : path_to_views + 'all-products-services.html',
+		controller : 'OperatorProdServController'
 	})
-	.when('/partner/earnings/macs', {
-		templateUrl : path_to_views + 'all-earnings.html',
-		controller : 'PartnerEarningsControllerEach'
+	.when('/eload/news_ads', {
+		templateUrl : path_to_views + 'all-news-ads.html',
+		controller : 'OperatorNewsAdsController'
 	})
-	.when('/partner/transactions', {
-		templateUrl : path_to_views + 'all-transactions.html',
-		controller : 'PartnerTransactionsController'
-	})
-	.when('/partner/transactions/macs', {
-		templateUrl : path_to_views + 'all-transactions.html',
-		controller : 'PartnerTransactionsControllerEach'
-	})
-	.when('/partner/settings', {
+	.when('/eload/settings', {
 		templateUrl : path_to_views + 'all-settings.html',
-		controller : 'PartnerSettingsController'
+		controller : 'OperatorSettingsController'
 	})
-
+	.when('/eload/reports', {
+		templateUrl : path_to_views + 'all-reports.html',
+		controller : 'OperatorReportsController'
+	})
+	.when('/eload/reports/macs', {
+		templateUrl : path_to_views + 'all-reports.html',
+		controller : 'OperatorReportsControllerEach'
+	})
 
 }]);
