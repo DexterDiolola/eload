@@ -155,7 +155,7 @@ class Procedures:
 		
 		# if success trnsaction
 		if status == 'success':
-			loadcentral_price = base_price # float(self.GET_BALANCE('admin', '')) - float(obj['bal']) # PRIORITY NOTE : uncomment after launching to production
+			loadcentral_price = float(self.GET_BALANCE('admin', '')) - float(obj['bal']) # PRIORITY NOTE : uncomment after launching to production #base_price
 			admin_balance = obj['bal']
 			admin_deduction = loadcentral_price
 			deduction = a_price
@@ -250,7 +250,7 @@ class Procedures:
 		
 		# if success trnsaction
 		if status == 'success':
-			loadcentral_price = base_price # float(self.GET_BALANCE('admin', '')) - float(obj['bal']) # PRIORITY NOTE : uncomment after launching to production
+			loadcentral_price = float(self.GET_BALANCE('admin', '')) - float(obj['bal']) # PRIORITY NOTE : uncomment after launching to production #base_price
 			admin_balance = obj['bal']
 			admin_deduction = loadcentral_price
 			deduction = a_price
@@ -865,13 +865,13 @@ class Procedures:
 		if operator == '':
 			if provider == '':
 				products = """ SELECT price_loadcentral.description, products.description AS description2, price_admin.pcode, price_loadcentral.price AS product_cost, 
-							price_admin.price, price_loadcentral.provider, price_loadcentral.status, price_admin.dealer FROM price_loadcentral
+							price_admin.price, price_loadcentral.provider, price_loadcentral.status FROM price_loadcentral
 							LEFT OUTER JOIN price_admin ON price_loadcentral.pcode = price_admin.pcode
 							LEFT OUTER JOIN products ON products.productCode = price_loadcentral.pcode """
 				cursor.execute(products)
 			else:
 				products = """ SELECT price_loadcentral.description, products.description AS description2, price_admin.pcode, price_loadcentral.price AS product_cost, 
-							price_admin.price, price_loadcentral.provider, price_loadcentral.status, price_admin.dealer FROM price_loadcentral
+							price_admin.price, price_loadcentral.provider, price_loadcentral.status FROM price_loadcentral
 							LEFT OUTER JOIN price_admin ON price_loadcentral.pcode = price_admin.pcode
 							LEFT OUTER JOIN products ON products.productCode = price_loadcentral.pcode
 							WHERE price_loadcentral.provider = %s """
@@ -912,7 +912,7 @@ class Procedures:
 		conn.close()
 		return rows
 
-	def setPriceAdmin(self, pcode, price, dealer):
+	def SET_PRICE_ADMIN(self, pcode, price):
 		try:
 			conn = mysql.connector.connect(user=self.dbuser, password=self.dbpass, 
 	 			   database=self.dbname)
@@ -931,17 +931,17 @@ class Procedures:
 		lc_price = lc_price[0]['price']
 
 		if float(price) < float(lc_price):
-			self.dbClose(conn, cursor)
 			return 'Failed, price is lower than the product cost'
 
-		q2 = ''' UPDATE price_admin SET price = %s, dealer = %s WHERE pcode = %s '''
-		cursor.execute(q2, (price, dealer, pcode))
+		q2 = ''' UPDATE price_admin SET price = %s WHERE pcode = %s '''
+		cursor.execute(q2, (price, pcode))
 		conn.commit()
-		self.dbClose(conn, cursor)
+		cursor.close()
+		conn.close()
 
 		return 'Success'
 
-	def setPriceOperator(self, pcode, price, operator):
+	def SET_PRICE_OPERATOR(self, pcode, price, operator):
 		try:
 			conn = mysql.connector.connect(user=self.dbuser, password=self.dbpass, 
 	 			   database=self.dbname)
@@ -1834,9 +1834,9 @@ class Procedures:
 		batchValue = int(package[3]) * int(obj['amount'])
 		walletBalance = int(walletData[0]['comment'])
 
-		# Check balance
-		if walletBalance < batchValue or walletBalance <= 0:
-			return 'Failed, not enough balance.'
+		# # Check balance
+		# if walletBalance < batchValue or walletBalance <= 0:
+		# 	return 'Failed, not enough balance.'
 
 		# Initialize /routing/filter/set command
 		xx = re.findall('\d+', package[0])[0]
@@ -2043,6 +2043,7 @@ class Procedures:
 			if extractMonth == obj['month']:
 				pinsData.append(xx)
 
+		print(len(pinsData))
 		return pinsData
 
 	def pinsDataSummation(self, obj):
